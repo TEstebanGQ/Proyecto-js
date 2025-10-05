@@ -1,0 +1,153 @@
+/* ========================================
+   ESTILOS MIS RESERVAS (PERFIL DE USUARIO)
+   ======================================== */
+
+.profile-header {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: white;
+  padding: 8rem 0 4rem;
+  margin-top: 56px;
+}
+
+.profile-card {
+  background: white;
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+  margin-top: -3rem;
+  position: relative;
+  z-index: 10;
+}
+
+.user-avatar {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: white;
+  margin: -50px auto 1rem;
+  border: 5px solid white;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  margin-bottom: 1.5rem;
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.booking-header {
+  background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+  color: white;
+  padding: 1.5rem;
+}
+
+.booking-status {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.status-confirmada {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-cancelada {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.booking-body {
+  padding: 1.5rem;
+}
+
+.booking-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.empty-bookings {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.empty-bookings i {
+  font-size: 5rem;
+  color: #dee2e6;
+  margin-bottom: 1rem;
+}
+
+.stats-card {
+  background: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  height: 100%;
+}
+
+.stats-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.stats-label {
+  color: #6c757d;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.service-badge {
+  display: inline-block;
+  padding: 0.3rem 0.8rem;
+  background: #f8f9fa;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  margin: 0.2rem;
+  color: #495057;
+}
+
+@media (max-width: 768px) {
+  .profile-header {
+    padding: 6rem 0 3rem;
+  }
+  
+  .user-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+  }
+  
+  .booking-image {
+    height: 150px;
+  }
+}
