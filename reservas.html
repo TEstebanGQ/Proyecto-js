@@ -1,50 +1,592 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reservas | El Rincón del Carmen</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .reservas-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: white;
+      padding: 6rem 0 3rem;
+      margin-top: 56px;
+    }
+    
+    .search-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      margin-top: -3rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .room-result-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .room-result-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .room-image-container {
+      position: relative;
+      height: 250px;
+      overflow: hidden;
+    }
+    
+    .room-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    
+    .room-result-card:hover .room-image {
+      transform: scale(1.1);
+    }
+    
+    .room-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--gold);
+      color: var(--dark);
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .service-badge {
+      display: inline-block;
+      background: #f8f9fa;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      margin: 0.2rem;
+      color: #495057;
+    }
+    
+    .service-badge i {
+      color: var(--gold);
+    }
+    
+    .price-section {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+      color: white;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+    
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    
+    .empty-state i {
+      font-size: 5rem;
+      color: #dee2e6;
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      .reservas-header {
+        padding: 5rem 0 2rem;
+      }
+      
+      .search-card {
+        padding: 1.5rem;
+        margin-top: -2rem;
+      }
+      
+      .room-image-container {
+        height: 200px;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">El Rincón del Carmen</a>
+  
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-text">EL RINCÓN DEL CARMEN</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="reservas.html">Reservas</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item" id="userMenuItem">
+            <a class="nav-link" href="login.html">
+              <i class="bi bi-person-circle"></i> Ingresar
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- HEADER -->
+  <header class="reservas-header">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-3">Encuentra tu Habitación Perfecta</h1>
+      <p class="lead">Busca disponibilidad y reserva en segundos</p>
+    </div>
+  </header>
+  
+  <!-- SEARCH SECTION -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="search-card">
+        <form id="searchForm" class="row g-3">
+          <div class="col-md-3 col-sm-6">
+            <label for="fechaInicio" class="form-label fw-bold">
+              <i class="bi bi-calendar-check text-gold"></i> Fecha de Entrada
+            </label>
+            <input type="date" class="form-control" id="fechaInicio" required>
+          </div>
+          
+          <div class="col-md-3 col-sm-6">
+            <label for="fechaFin" class="form-label fw-bold">
+              <i class="bi bi-calendar-x text-gold"></i> Fecha de Salida
+            </label>
+            <input type="date" class="form-control" id="fechaFin" required>
+          </div>
+          
+          <div class="col-md-2 col-sm-6">
+            <label for="personas" class="form-label fw-bold">
+              <i class="bi bi-people text-gold"></i> Personas
+            </label>
+            <select class="form-select" id="personas" required>
+              <option value="1">1 Persona</option>
+              <option value="2" selected>2 Personas</option>
+              <option value="3">3 Personas</option>
+              <option value="4">4 Personas</option>
+              <option value="5">5 Personas</option>
+              <option value="6">6+ Personas</option>
+            </select>
+          </div>
+          
+          <div class="col-md-4 col-sm-6 d-flex align-items-end">
+            <button type="submit" class="btn btn-gold w-100">
+              <i class="bi bi-search"></i> Buscar Disponibilidad
+            </button>
+          </div>
+        </form>
+        
+        <div id="searchInfo" class="mt-3 text-muted small text-center" style="display: none;"></div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- RESULTS SECTION -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div id="loadingSpinner" style="display: none;">
+        <div class="text-center py-5">
+          <div class="spinner-border text-gold" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p class="mt-3 text-muted">Buscando habitaciones disponibles...</p>
+        </div>
+      </div>
+      
+      <div id="resultsContainer">
+        <div class="empty-state">
+          <i class="bi bi-search"></i>
+          <h3 class="text-muted">Ingresa tus fechas para buscar</h3>
+          <p class="text-muted">Selecciona las fechas de entrada y salida para ver las habitaciones disponibles</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- MODAL DE RESERVA -->
+  <div class="modal fade" id="bookingModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">
+            <i class="bi bi-calendar-check"></i> Confirmar Reserva
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Se llenará dinámicamente -->
+        </div>
+      </div>
+    </div>
   </div>
-</nav>
-
-<section class="py-5 mt-4">
-  <div class="container">
-    <h2 class="text-center mb-4">Consulta y Reserva tu Habitación</h2>
-    <form id="formBusqueda" class="row g-3 justify-content-center">
-      <div class="col-md-3">
-        <label for="fechaInicio" class="form-label">Fecha inicio</label>
-        <input type="date" id="fechaInicio" class="form-control" required>
-      </div>
-      <div class="col-md-3">
-        <label for="fechaFin" class="form-label">Fecha fin</label>
-        <input type="date" id="fechaFin" class="form-control" required>
-      </div>
-      <div class="col-md-2">
-        <label for="personas" class="form-label">Personas</label>
-        <input type="number" id="personas" class="form-control" min="1" value="1" required>
-      </div>
-      <div class="col-md-2 d-flex align-items-end">
-        <button class="btn btn-primary w-100" type="submit">Buscar</button>
-      </div>
-    </form>
-
-    <div id="resultados" class="mt-5 row g-4"></div>
-  </div>
-</section>
-
-<footer class="bg-dark text-white text-center py-3">
-  <p class="mb-0">© 2025 Hotel El Rincón del Carmen</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="js/reservas.js"></script>
+  
+  <!-- FOOTER -->
+  <footer class="footer bg-dark text-white py-4">
+    <div class="container text-center">
+      <p class="mb-0">© 2025 Hotel El Rincón del Carmen. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { 
+      checkAvailability, 
+      getRoomById, 
+      addBooking, 
+      isAuthenticated, 
+      getCurrentUser,
+      calculateNights,
+      calculateTotal,
+      formatPrice,
+      isRoomAvailable
+    } from './js/storage.js';
+    
+    // Elementos del DOM
+    const searchForm = document.getElementById('searchForm');
+    const resultsContainer = document.getElementById('resultsContainer');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const searchInfo = document.getElementById('searchInfo');
+    const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+    const modalBody = document.getElementById('modalBody');
+    const userMenuItem = document.getElementById('userMenuItem');
+    
+    // Configurar menú de usuario
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+      userMenuItem.innerHTML = `
+        <div class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-person-circle"></i> ${currentUser.nombre}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="mis-reservas.html">
+              <i class="bi bi-calendar"></i> Mis Reservas
+            </a></li>
+            ${currentUser.role === 'admin' ? '<li><a class="dropdown-item" href="admin.html"><i class="bi bi-gear"></i> Administración</a></li>' : ''}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" id="logoutBtn">
+              <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+            </a></li>
+          </ul>
+        </div>
+      `;
+      
+      document.getElementById('logoutBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        import('./js/storage.js').then(module => {
+          module.logout();
+          window.location.reload();
+        });
+      });
+    }
+    
+    // Configurar fechas mínimas
+    const today = new Date().toISOString().split('T')[0];
+    const tomorrow = new Date(Date.now() + 86400000).toISOString().split('T')[0];
+    document.getElementById('fechaInicio').min = today;
+    document.getElementById('fechaFin').min = tomorrow;
+    document.getElementById('fechaInicio').value = today;
+    document.getElementById('fechaFin').value = tomorrow;
+    
+    // Actualizar fecha mínima de salida cuando cambia entrada
+    document.getElementById('fechaInicio').addEventListener('change', (e) => {
+      const fechaInicio = new Date(e.target.value);
+      const minFechaFin = new Date(fechaInicio.getTime() + 86400000).toISOString().split('T')[0];
+      document.getElementById('fechaFin').min = minFechaFin;
+      
+      if (document.getElementById('fechaFin').value <= e.target.value) {
+        document.getElementById('fechaFin').value = minFechaFin;
+      }
+    });
+    
+    // Buscar habitaciones
+    searchForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const fechaInicio = document.getElementById('fechaInicio').value;
+      const fechaFin = document.getElementById('fechaFin').value;
+      const personas = parseInt(document.getElementById('personas').value);
+      
+      if (!fechaInicio || !fechaFin) {
+        alert('Por favor selecciona las fechas');
+        return;
+      }
+      
+      if (new Date(fechaInicio) >= new Date(fechaFin)) {
+        alert('La fecha de salida debe ser posterior a la fecha de entrada');
+        return;
+      }
+      
+      // Mostrar loading
+      loadingSpinner.style.display = 'block';
+      resultsContainer.innerHTML = '';
+      
+      // Simular delay de búsqueda
+      setTimeout(() => {
+        const availableRooms = checkAvailability(fechaInicio, fechaFin, personas);
+        displayResults(availableRooms, fechaInicio, fechaFin, personas);
+        loadingSpinner.style.display = 'none';
+        
+        // Mostrar info de búsqueda
+        const nights = calculateNights(fechaInicio, fechaFin);
+        searchInfo.innerHTML = `
+          <i class="bi bi-info-circle"></i> 
+          Mostrando ${availableRooms.length} habitación(es) disponible(s) 
+          para ${personas} persona(s) durante ${nights} noche(s)
+        `;
+        searchInfo.style.display = 'block';
+      }, 500);
+    });
+    
+    // Mostrar resultados
+    function displayResults(rooms, fechaInicio, fechaFin, personas) {
+      if (rooms.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="empty-state">
+            <i class="bi bi-emoji-frown"></i>
+            <h3 class="text-muted">No hay habitaciones disponibles</h3>
+            <p class="text-muted">Por favor intenta con otras fechas o menos personas</p>
+          </div>
+        `;
+        return;
+      }
+      
+      const nights = calculateNights(fechaInicio, fechaFin);
+      
+      resultsContainer.innerHTML = `
+        <h3 class="mb-4">
+          <i class="bi bi-check-circle text-success"></i> 
+          ${rooms.length} Habitación(es) Disponible(s)
+        </h3>
+        <div class="row g-4">
+          ${rooms.map(room => createRoomCard(room, fechaInicio, fechaFin, personas, nights)).join('')}
+        </div>
+      `;
+      
+      // Agregar event listeners a los botones
+      document.querySelectorAll('.btn-reserve').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const roomId = parseInt(btn.dataset.roomId);
+          showBookingModal(roomId, fechaInicio, fechaFin, personas, nights);
+        });
+      });
+    }
+    
+    // Crear card de habitación
+    function createRoomCard(room, fechaInicio, fechaFin, personas, nights) {
+      const total = room.precio * nights;
+      
+      return `
+        <div class="col-md-6 col-lg-4">
+          <div class="room-result-card">
+            <div class="room-image-container">
+              <img src="assets/img/rooms/${room.imagen}" alt="${room.nombre}" class="room-image" 
+                   onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(room.nombre)}'">
+              <div class="room-badge">
+                <i class="bi bi-star-fill"></i> Premium
+              </div>
+            </div>
+            
+            <div class="p-3">
+              <h4 class="mb-2">${room.nombre}</h4>
+              <p class="text-muted small mb-3">${room.descripcion}</p>
+              
+              <div class="mb-3">
+                <span class="service-badge">
+                  <i class="bi bi-people-fill"></i> Hasta ${room.personas} personas
+                </span>
+                <span class="service-badge">
+                  <i class="bi bi-door-closed-fill"></i> ${room.camas} cama(s)
+                </span>
+              </div>
+              
+              <div class="mb-3">
+                ${room.servicios.map(servicio => `
+                  <span class="service-badge">
+                    <i class="bi bi-check2"></i> ${servicio}
+                  </span>
+                `).join('')}
+              </div>
+              
+              <div class="price-section">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span>Precio por noche:</span>
+                  <strong>${formatPrice(room.precio)}</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <span>${nights} noche(s):</span>
+                  <strong>${formatPrice(total)}</strong>
+                </div>
+                <hr class="my-2 border-white">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">Total:</h5>
+                  <h4 class="mb-0">${formatPrice(total)}</h4>
+                </div>
+              </div>
+              
+              <button class="btn btn-dark w-100 mt-3 btn-reserve" data-room-id="${room.id}">
+                <i class="bi bi-calendar-check"></i> Reservar Ahora
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    // Mostrar modal de reserva
+    function showBookingModal(roomId, fechaInicio, fechaFin, personas, nights) {
+      // Verificar autenticación
+      if (!isAuthenticated()) {
+        if (confirm('Debes iniciar sesión para hacer una reserva. ¿Deseas ir al login?')) {
+          window.location.href = 'login.html';
+        }
+        return;
+      }
+      
+      const room = getRoomById(roomId);
+      const total = room.precio * nights;
+      const user = getCurrentUser();
+      
+      // Verificar disponibilidad nuevamente
+      if (!isRoomAvailable(roomId, fechaInicio, fechaFin)) {
+        alert('Lo sentimos, esta habitación ya no está disponible para las fechas seleccionadas.');
+        searchForm.dispatchEvent(new Event('submit'));
+        return;
+      }
+      
+      modalBody.innerHTML = `
+        <div class="row">
+          <div class="col-md-5">
+            <img src="assets/img/rooms/${room.imagen}" class="img-fluid rounded mb-3" alt="${room.nombre}"
+                 onerror="this.src='https://via.placeholder.com/400x300?text=${encodeURIComponent(room.nombre)}'">
+          </div>
+          <div class="col-md-7">
+            <h4 class="mb-3">${room.nombre}</h4>
+            
+            <div class="mb-3">
+              <h6 class="text-muted">Detalles de la Reserva:</h6>
+              <ul class="list-unstyled">
+                <li><i class="bi bi-calendar-check text-gold"></i> <strong>Entrada:</strong> ${new Date(fechaInicio).toLocaleDateString('es-CO', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</li>
+                <li><i class="bi bi-calendar-x text-gold"></i> <strong>Salida:</strong> ${new Date(fechaFin).toLocaleDateString('es-CO', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})}</li>
+                <li><i class="bi bi-moon-stars text-gold"></i> <strong>Noches:</strong> ${nights}</li>
+                <li><i class="bi bi-people text-gold"></i> <strong>Personas:</strong> ${personas}</li>
+              </ul>
+            </div>
+            
+            <div class="mb-3">
+              <h6 class="text-muted">Servicios Incluidos:</h6>
+              <div>
+                ${room.servicios.map(s => `<span class="service-badge"><i class="bi bi-check2"></i> ${s}</span>`).join('')}
+              </div>
+            </div>
+            
+            <div class="alert alert-info">
+              <i class="bi bi-info-circle"></i> 
+              <strong>Importante:</strong> Una vez confirmada, podrás gestionar tu reserva desde "Mis Reservas".
+            </div>
+          </div>
+        </div>
+        
+        <hr>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <h6 class="text-muted mb-3">Resumen de Costos:</h6>
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Precio por noche</td>
+                  <td class="text-end">${formatPrice(room.precio)}</td>
+                </tr>
+                <tr>
+                  <td>Cantidad de noches (${nights})</td>
+                  <td class="text-end">${formatPrice(room.precio * nights)}</td>
+                </tr>
+                <tr class="table-dark">
+                  <td><strong>Total a Pagar</strong></td>
+                  <td class="text-end"><strong>${formatPrice(total)}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <h6 class="text-muted mb-3">Datos del Huésped:</h6>
+            <p class="mb-1"><strong>Nombre:</strong> ${user.nombre}</p>
+            <p class="mb-1"><strong>Email:</strong> ${user.email}</p>
+            <p class="mb-3"><i class="bi bi-shield-check text-success"></i> Usuario verificado</p>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle"></i> Cancelar
+          </button>
+          <button type="button" class="btn btn-gold" id="confirmBookingBtn">
+            <i class="bi bi-check-circle"></i> Confirmar Reserva
+          </button>
+        </div>
+      `;
+      
+      bookingModal.show();
+      
+      // Confirmar reserva
+      document.getElementById('confirmBookingBtn').addEventListener('click', () => {
+        confirmBooking(roomId, fechaInicio, fechaFin, personas, total);
+      });
+    }
+    
+    // Confirmar reserva
+    function confirmBooking(roomId, fechaInicio, fechaFin, personas, total) {
+      const user = getCurrentUser();
+      
+      const booking = addBooking({
+        roomId: roomId,
+        userId: user.id,
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin,
+        personas: personas,
+        total: total
+      });
+      
+      if (booking) {
+        bookingModal.hide();
+        
+        // Mostrar mensaje de éxito
+        const successAlert = document.createElement('div');
+        successAlert.className = 'alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3';
+        successAlert.style.zIndex = '9999';
+        successAlert.innerHTML = `
+          <i class="bi bi-check-circle-fill"></i>
+          <strong>¡Reserva Confirmada!</strong> Tu reserva ha sido creada exitosamente.
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+        document.body.appendChild(successAlert);
+        
+        setTimeout(() => {
+          successAlert.remove();
+          window.location.href = 'mis-reservas.html';
+        }, 3000);
+      } else {
+        alert('Error al crear la reserva. Por favor intenta nuevamente.');
+      }
+    }
+  </script>
 </body>
 </html>

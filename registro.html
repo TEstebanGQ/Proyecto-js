@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro | El Rincón del Carmen</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .auth-container {
+      min-height: 100vh;
+      padding: 2rem 0;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    }
+    
+    .auth-card {
+      background: white;
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 550px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .auth-header h1 {
+      color: var(--gold);
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .auth-header p {
+      color: #6c757d;
+      font-size: 0.95rem;
+    }
+    
+    .form-control:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+    }
+    
+    .auth-link {
+      color: var(--gold);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .auth-link:hover {
+      color: var(--bronze);
+    }
+    
+    .password-strength {
+      height: 5px;
+      border-radius: 3px;
+      margin-top: 0.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    @media (max-width: 576px) {
+      .auth-card {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+      }
+      
+      .auth-header h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="auth-container">
+    <div class="container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <h1><i class="bi bi-person-plus"></i> Crear Cuenta</h1>
+          <p>Completa tus datos para registrarte</p>
+        </div>
+        
+        <div id="alertContainer"></div>
+        
+        <form id="registerForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="identificacion" class="form-label">
+                <i class="bi bi-card-text"></i> Identificación *
+              </label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="identificacion" 
+                placeholder="123456789"
+                required
+              >
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="nombre" class="form-label">
+                <i class="bi bi-person"></i> Nombre Completo *
+              </label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="nombre" 
+                placeholder="Juan Pérez"
+                required
+              >
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="email" class="form-label">
+                <i class="bi bi-envelope"></i> Email *
+              </label>
+              <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                placeholder="tu@email.com"
+                required
+              >
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label for="telefono" class="form-label">
+                <i class="bi bi-phone"></i> Teléfono *
+              </label>
+              <input 
+                type="tel" 
+                class="form-control" 
+                id="telefono" 
+                placeholder="3001234567"
+                required
+              >
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="nacionalidad" class="form-label">
+              <i class="bi bi-flag"></i> Nacionalidad *
+            </label>
+            <select class="form-select" id="nacionalidad" required>
+              <option value="">Selecciona tu país</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Argentina">Argentina</option>
+              <option value="México">México</option>
+              <option value="España">España</option>
+              <option value="Chile">Chile</option>
+              <option value="Perú">Perú</option>
+              <option value="Venezuela">Venezuela</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="Uruguay">Uruguay</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">
+              <i class="bi bi-lock"></i> Contraseña *
+            </label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="password" 
+              placeholder="Mínimo 6 caracteres"
+              required
+              minlength="6"
+            >
+            <div class="password-strength" id="passwordStrength"></div>
+            <small class="text-muted">La contraseña debe tener al menos 6 caracteres</small>
+          </div>
+          
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">
+              <i class="bi bi-lock-fill"></i> Confirmar Contraseña *
+            </label>
+            <input 
+              type="password" 
+              class="form-control" 
+              id="confirmPassword" 
+              placeholder="Repite tu contraseña"
+              required
+            >
+          </div>
+          
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="terms" required>
+            <label class="form-check-label" for="terms">
+              Acepto los <a href="#" class="auth-link">términos y condiciones</a>
+            </label>
+          </div>
+          
+          <button type="submit" class="btn btn-gold w-100 mb-3">
+            <i class="bi bi-check-circle"></i> Crear Cuenta
+          </button>
+          
+          <div class="text-center">
+            <small class="text-muted">
+              ¿Ya tienes cuenta? 
+              <a href="login.html" class="auth-link">Inicia sesión aquí</a>
+            </small>
+          </div>
+          
+          <hr class="my-3">
+          
+          <a href="index.html" class="btn btn-outline-secondary w-100">
+            <i class="bi bi-house"></i> Volver al Inicio
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { addUser, isAuthenticated } from './js/storage.js';
+    
+    // Redirigir si ya está autenticado
+    if (isAuthenticated()) {
+      window.location.href = 'mis-reservas.html';
+    }
+    
+    const form = document.getElementById('registerForm');
+    const alertContainer = document.getElementById('alertContainer');
+    const passwordInput = document.getElementById('password');
+    const passwordStrength = document.getElementById('passwordStrength');
+    
+    function showAlert(message, type = 'danger') {
+      alertContainer.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+          <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      `;
+      
+      setTimeout(() => {
+        if (type === 'success') {
+          window.location.href = 'login.html';
+        }
+      }, 2000);
+    }
+    
+    // Indicador de fortaleza de contraseña
+    passwordInput.addEventListener('input', (e) => {
+      const password = e.target.value;
+      let strength = 0;
+      
+      if (password.length >= 6) strength++;
+      if (password.length >= 10) strength++;
+      if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+      if (/\d/.test(password)) strength++;
+      if (/[^a-zA-Z\d]/.test(password)) strength++;
+      
+      const colors = ['#dc3545', '#ffc107', '#28a745'];
+      const widths = ['33%', '66%', '100%'];
+      
+      if (strength === 0) {
+        passwordStrength.style.width = '0';
+        passwordStrength.style.backgroundColor = '';
+      } else if (strength <= 2) {
+        passwordStrength.style.width = widths[0];
+        passwordStrength.style.backgroundColor = colors[0];
+      } else if (strength <= 3) {
+        passwordStrength.style.width = widths[1];
+        passwordStrength.style.backgroundColor = colors[1];
+      } else {
+        passwordStrength.style.width = widths[2];
+        passwordStrength.style.backgroundColor = colors[2];
+      }
+    });
+    
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const identificacion = document.getElementById('identificacion').value.trim();
+      const nombre = document.getElementById('nombre').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+      const nacionalidad = document.getElementById('nacionalidad').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const terms = document.getElementById('terms').checked;
+      
+      // Validaciones
+      if (!identificacion || !nombre || !email || !telefono || !nacionalidad || !password) {
+        showAlert('Por favor completa todos los campos obligatorios');
+        return;
+      }
+      
+      if (password.length < 6) {
+        showAlert('La contraseña debe tener al menos 6 caracteres');
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        showAlert('Las contraseñas no coinciden');
+        return;
+      }
+      
+      if (!terms) {
+        showAlert('Debes aceptar los términos y condiciones');
+        return;
+      }
+      
+      // Validar email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showAlert('Por favor ingresa un email válido');
+        return;
+      }
+      
+      // Crear usuario
+      const result = addUser({
+        identificacion,
+        nombre,
+        email,
+        telefono,
+        nacionalidad,
+        password
+      });
+      
+      if (result.error) {
+        showAlert(result.error);
+      } else {
+        showAlert('¡Cuenta creada exitosamente! Redirigiendo al login...', 'success');
+      }
+    });
+  </script>
+</body>
+</html>

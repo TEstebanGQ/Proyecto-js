@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Reservas | El Rincón del Carmen</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .profile-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      color: white;
+      padding: 8rem 0 4rem;
+      margin-top: 56px;
+    }
+    
+    .profile-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      margin-top: -3rem;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .user-avatar {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+      margin: -50px auto 1rem;
+      border: 5px solid white;
+    }
+    
+    .booking-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      margin-bottom: 1.5rem;
+    }
+    
+    .booking-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+    
+    .booking-header {
+      background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+      color: white;
+      padding: 1.5rem;
+    }
+    
+    .booking-status {
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    
+    .status-confirmada {
+      background: #d4edda;
+      color: #155724;
+    }
+    
+    .status-cancelada {
+      background: #f8d7da;
+      color: #721c24;
+    }
+    
+    .booking-body {
+      padding: 1.5rem;
+    }
+    
+    .booking-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .info-row:last-child {
+      border-bottom: none;
+    }
+    
+    .empty-bookings {
+      text-align: center;
+      padding: 4rem 2rem;
+    }
+    
+    .empty-bookings i {
+      font-size: 5rem;
+      color: #dee2e6;
+      margin-bottom: 1rem;
+    }
+    
+    .stats-card {
+      background: white;
+      border-radius: 10px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      height: 100%;
+    }
+    
+    .stats-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--gold);
+    }
+    
+    .stats-label {
+      color: #6c757d;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    @media (max-width: 768px) {
+      .profile-header {
+        padding: 6rem 0 3rem;
+      }
+      
+      .user-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+      }
+      
+      .booking-image {
+        height: 150px;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <span class="brand-text">EL RINCÓN DEL CARMEN</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+          <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+          <li class="nav-item">
+            <div class="dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                <i class="bi bi-person-circle"></i> <span id="userName">Usuario</span>
+              </a>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item active" href="mis-reservas.html">
+                  <i class="bi bi-calendar"></i> Mis Reservas
+                </a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" id="logoutBtn">
+                  <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+                </a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- HEADER -->
+  <header class="profile-header">
+    <div class="container text-center">
+      <h1 class="display-4 fw-bold mb-3">Mi Perfil</h1>
+      <p class="lead">Gestiona tus reservas y preferencias</p>
+    </div>
+  </header>
+  
+  <!-- PROFILE CARD -->
+  <section class="pb-5">
+    <div class="container">
+      <div class="profile-card">
+        <div class="user-avatar">
+          <i class="bi bi-person-fill"></i>
+        </div>
+        <div class="text-center mb-4">
+          <h3 id="profileName">Cargando...</h3>
+          <p class="text-muted" id="profileEmail">email@example.com</p>
+        </div>
+        
+        <!-- ESTADÍSTICAS -->
+        <div class="row g-3 mt-4">
+          <div class="col-md-4">
+            <div class="stats-card">
+              <div class="stats-number" id="totalBookings">0</div>
+              <div class="stats-label">Total Reservas</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stats-card">
+              <div class="stats-number" id="activeBookings">0</div>
+              <div class="stats-label">Activas</div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stats-card">
+              <div class="stats-number" id="totalSpent">$0</div>
+              <div class="stats-label">Gastado Total</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FILTROS -->
+  <section class="py-4 bg-light">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <h3 class="mb-0">
+          <i class="bi bi-calendar-check"></i> Mis Reservas
+        </h3>
+        <div class="btn-group" role="group">
+          <input type="radio" class="btn-check" name="statusFilter" id="filterAll" checked>
+          <label class="btn btn-outline-dark" for="filterAll">Todas</label>
+          
+          <input type="radio" class="btn-check" name="statusFilter" id="filterActive">
+          <label class="btn btn-outline-success" for="filterActive">Activas</label>
+          
+          <input type="radio" class="btn-check" name="statusFilter" id="filterCancelled">
+          <label class="btn btn-outline-danger" for="filterCancelled">Canceladas</label>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- RESERVAS -->
+  <section class="py-5">
+    <div class="container">
+      <div id="bookingsContainer">
+        <div class="text-center py-5">
+          <div class="spinner-border text-gold" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+          <p class="mt-3 text-muted">Cargando tus reservas...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- MODAL DETALLES -->
+  <div class="modal fade" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">
+            <i class="bi bi-info-circle"></i> Detalles de la Reserva
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="detailsBody">
+          <!-- Se llenará dinámicamente -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FOOTER -->
+  <footer class="footer bg-dark text-white py-4">
+    <div class="container text-center">
+      <p class="mb-0">© 2025 Hotel El Rincón del Carmen. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import {
+      isAuthenticated,
+      getCurrentUser,
+      getUserBookings,
+      getRoomById,
+      cancelBooking,
+      logout,
+      formatPrice,
+      formatDate
+    } from './js/storage.js';
+    
+    // Verificar autenticación
+    if (!isAuthenticated()) {
+      alert('Debes iniciar sesión para ver tus reservas');
+      window.location.href = 'login.html';
+    }
+    
+    const user = getCurrentUser();
+    const bookingsContainer = document.getElementById('bookingsContainer');
+    const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+    
+    // Actualizar información del perfil
+    document.getElementById('userName').textContent = user.nombre.split(' ')[0];
+    document.getElementById('profileName').textContent = user.nombre;
+    document.getElementById('profileEmail').textContent = user.email;
+    
+    // Cerrar sesión
+    document.getElementById('logoutBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+        logout();
+        window.location.href = 'index.html';
+      }
+    });
+    
+    // Cargar reservas
+    let allBookings = [];
+    let currentFilter = 'all';
+    
+    function loadBookings() {
+      allBookings = getUserBookings(user.id);
+      updateStats();
+      renderBookings();
+    }
+    
+    function updateStats() {
+      const active = allBookings.filter(b => b.estado === 'confirmada').length;
+      const totalSpent = allBookings
+        .filter(b => b.estado === 'confirmada')
+        .reduce((sum, b) => sum + b.total, 0);
+      
+      document.getElementById('totalBookings').textContent = allBookings.length;
+      document.getElementById('activeBookings').textContent = active;
+      document.getElementById('totalSpent').textContent = formatPrice(totalSpent);
+    }
+    
+    function renderBookings() {
+      let bookingsToShow = allBookings;
+      
+      if (currentFilter === 'active') {
+        bookingsToShow = allBookings.filter(b => b.estado === 'confirmada');
+      } else if (currentFilter === 'cancelled') {
+        bookingsToShow = allBookings.filter(b => b.estado === 'cancelada');
+      }
+      
+      if (bookingsToShow.length === 0) {
+        bookingsContainer.innerHTML = `
+          <div class="empty-bookings">
+            <i class="bi bi-calendar-x"></i>
+            <h3 class="text-muted">No tienes reservas${currentFilter !== 'all' ? ' ' + (currentFilter === 'active' ? 'activas' : 'canceladas') : ''}</h3>
+            <p class="text-muted">¡Haz tu primera reserva y disfruta de nuestras suites de lujo!</p>
+            <a href="reservas.html" class="btn btn-gold mt-3">
+              <i class="bi bi-plus-circle"></i> Nueva Reserva
+            </a>
+          </div>
+        `;
+        return;
+      }
+      
+      bookingsContainer.innerHTML = bookingsToShow.map(booking => createBookingCard(booking)).join('');
+      
+      // Agregar event listeners
+      document.querySelectorAll('.btn-cancel-booking').forEach(btn => {
+        btn.addEventListener('click', () => handleCancelBooking(parseInt(btn.dataset.bookingId)));
+      });
+      
+      document.querySelectorAll('.btn-view-details').forEach(btn => {
+        btn.addEventListener('click', () => showDetails(parseInt(btn.dataset.bookingId)));
+      });
+    }
+    
+    function createBookingCard(booking) {
+      const room = getRoomById(booking.roomId);
+      const isActive = booking.estado === 'confirmada';
+      const isPast = new Date(booking.fechaFin) < new Date();
+      
+      return `
+        <div class="booking-card">
+          <div class="booking-header">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div>
+                <h5 class="mb-1">${room.nombre}</h5>
+                <small>Reserva #${booking.id}</small>
+              </div>
+              <span class="booking-status status-${booking.estado}">
+                <i class="bi bi-${booking.estado === 'confirmada' ? 'check-circle' : 'x-circle'}"></i>
+                ${booking.estado === 'confirmada' ? 'Confirmada' : 'Cancelada'}
+              </span>
+            </div>
+          </div>
+          
+          <div class="booking-body">
+            <div class="row">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <img src="assets/img/rooms/${room.imagen}" alt="${room.nombre}" class="booking-image"
+                     onerror="this.src='https://picsum.photos/400/300?random=${booking.id}'">
+              </div>
+              
+              <div class="col-md-8">
+                <div class="info-row">
+                  <span class="text-muted">
+                    <i class="bi bi-calendar-check text-gold"></i> Check-in
+                  </span>
+                  <strong>${formatDate(booking.fechaInicio)}</strong>
+                </div>
+                
+                <div class="info-row">
+                  <span class="text-muted">
+                    <i class="bi bi-calendar-x text-gold"></i> Check-out
+                  </span>
+                  <strong>${formatDate(booking.fechaFin)}</strong>
+                </div>
+                
+                <div class="info-row">
+                  <span class="text-muted">
+                    <i class="bi bi-people text-gold"></i> Personas
+                  </span>
+                  <strong>${booking.personas}</strong>
+                </div>
+                
+                <div class="info-row">
+                  <span class="text-muted">
+                    <i class="bi bi-currency-dollar text-gold"></i> Total
+                  </span>
+                  <strong class="text-gold">${formatPrice(booking.total)}</strong>
+                </div>
+                
+                <div class="mt-3 d-flex gap-2 flex-wrap">
+                  <button class="btn btn-sm btn-outline-dark btn-view-details" data-booking-id="${booking.id}">
+                    <i class="bi bi-eye"></i> Ver Detalles
+                  </button>
+                  ${isActive && !isPast ? `
+                    <button class="btn btn-sm btn-danger btn-cancel-booking" data-booking-id="${booking.id}">
+                      <i class="bi bi-x-circle"></i> Cancelar Reserva
+                    </button>
+                  ` : ''}
+                  ${isPast && isActive ? '<span class="badge bg-secondary">Completada</span>' : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+    
+    function handleCancelBooking(bookingId) {
+      const booking = allBookings.find(b => b.id === bookingId);
+      const room = getRoomById(booking.roomId);
+      
+      if (confirm(`¿Estás seguro que deseas cancelar tu reserva en ${room.nombre}?`)) {
+        if (cancelBooking(bookingId)) {
+          showAlert('Reserva cancelada exitosamente', 'success');
+          loadBookings();
+        } else {
+          showAlert('Error al cancelar la reserva', 'danger');
+        }
+      }
+    }
+    
+    function showDetails(bookingId) {
+      const booking = allBookings.find(b => b.id === bookingId);
+      const room = getRoomById(booking.roomId);
+      
+      const fechaInicio = new Date(booking.fechaInicio);
+      const fechaFin = new Date(booking.fechaFin);
+      const nights = Math.ceil((fechaFin - fechaInicio) / (1000 * 60 * 60 * 24));
+      
+      document.getElementById('detailsBody').innerHTML = `
+        <div class="row">
+          <div class="col-md-6">
+            <img src="assets/img/rooms/${room.imagen}" class="img-fluid rounded mb-3" alt="${room.nombre}"
+                 onerror="this.src='https://picsum.photos/500/400?random=${booking.id}'">
+          </div>
+          <div class="col-md-6">
+            <h4 class="mb-3">${room.nombre}</h4>
+            <p class="text-muted">${room.descripcion}</p>
+            
+            <h6 class="mt-4 mb-3 text-gold">Información de la Reserva</h6>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="bi bi-hash text-gold"></i> 
+                <strong>ID:</strong> ${booking.id}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-calendar-check text-gold"></i> 
+                <strong>Check-in:</strong> ${formatDate(booking.fechaInicio)}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-calendar-x text-gold"></i> 
+                <strong>Check-out:</strong> ${formatDate(booking.fechaFin)}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-moon-stars text-gold"></i> 
+                <strong>Noches:</strong> ${nights}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-people text-gold"></i> 
+                <strong>Personas:</strong> ${booking.personas}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-clock text-gold"></i> 
+                <strong>Fecha de reserva:</strong> ${formatDate(booking.fechaReserva)}
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-info-circle text-gold"></i> 
+                <strong>Estado:</strong> 
+                <span class="booking-status status-${booking.estado}">
+                  ${booking.estado === 'confirmada' ? 'Confirmada' : 'Cancelada'}
+                </span>
+              </li>
+              ${booking.fechaCancelacion ? `
+                <li class="mb-2">
+                  <i class="bi bi-x-circle text-danger"></i> 
+                  <strong>Cancelada:</strong> ${formatDate(booking.fechaCancelacion)}
+                </li>
+              ` : ''}
+            </ul>
+            
+            <h6 class="mt-4 mb-3 text-gold">Servicios Incluidos</h6>
+            <div class="mb-3">
+              ${room.servicios.map(s => `
+                <span class="service-badge">
+                  <i class="bi bi-check2"></i> ${s}
+                </span>
+              `).join('')}
+            </div>
+            
+            <div class="alert alert-info">
+              <h6 class="alert-heading">Detalles del Costo</h6>
+              <div class="d-flex justify-content-between mb-1">
+                <span>Precio por noche:</span>
+                <strong>${formatPrice(room.precio)}</strong>
+              </div>
+              <div class="d-flex justify-content-between mb-1">
+                <span>Noches (${nights}):</span>
+                <strong>${formatPrice(room.precio * nights)}</strong>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between">
+                <span><strong>Total Pagado:</strong></span>
+                <h5 class="text-gold mb-0">${formatPrice(booking.total)}</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          ${booking.estado === 'confirmada' && new Date(booking.fechaFin) > new Date() ? `
+            <button type="button" class="btn btn-danger" onclick="cancelFromModal(${booking.id})">
+              <i class="bi bi-x-circle"></i> Cancelar Reserva
+            </button>
+          ` : ''}
+        </div>
+      `;
+      
+      detailsModal.show();
+    }
+    
+    // Cancelar desde modal
+    window.cancelFromModal = function(bookingId) {
+      detailsModal.hide();
+      setTimeout(() => handleCancelBooking(bookingId), 300);
+    };
+    
+    function showAlert(message, type) {
+      const alertDiv = document.createElement('div');
+      alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
+      alertDiv.style.zIndex = '9999';
+      alertDiv.innerHTML = `
+        <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+        ${message}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      `;
+      document.body.appendChild(alertDiv);
+      
+      setTimeout(() => alertDiv.remove(), 3000);
+    }
+    
+    // Filtros
+    document.getElementById('filterAll').addEventListener('change', () => {
+      currentFilter = 'all';
+      renderBookings();
+    });
+    
+    document.getElementById('filterActive').addEventListener('change', () => {
+      currentFilter = 'active';
+      renderBookings();
+    });
+    
+    document.getElementById('filterCancelled').addEventListener('change', () => {
+      currentFilter = 'cancelled';
+      renderBookings();
+    });
+    
+    // Cargar reservas inicialmente
+    loadBookings();
+  </script>
+</body>
+</html>

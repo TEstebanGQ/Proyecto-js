@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin | El Rincón del Carmen</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    body {
+      background: #f8f9fa;
+    }
+    
+    .admin-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 250px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 100%);
+      padding: 1rem 0;
+      overflow-y: auto;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+    
+    .admin-sidebar.mobile-hidden {
+      transform: translateX(-100%);
+    }
+    
+    .admin-content {
+      margin-left: 250px;
+      padding: 2rem;
+      min-height: 100vh;
+      transition: margin-left 0.3s ease;
+    }
+    
+    .admin-content.sidebar-hidden {
+      margin-left: 0;
+    }
+    
+    .sidebar-brand {
+      padding: 1rem 1.5rem;
+      color: var(--gold);
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    
+    .sidebar-menu {
+      list-style: none;
+      padding: 1rem 0;
+      margin: 0;
+    }
+    
+    .sidebar-menu li {
+      margin: 0.2rem 0;
+    }
+    
+    .sidebar-menu a {
+      display: block;
+      padding: 0.8rem 1.5rem;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar-menu a:hover,
+    .sidebar-menu a.active {
+      background: rgba(212, 175, 55, 0.1);
+      color: var(--gold);
+      border-left: 3px solid var(--gold);
+    }
+    
+    .sidebar-menu i {
+      width: 25px;
+      margin-right: 10px;
+    }
+    
+    .stats-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .stats-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    
+    .stats-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .stats-icon.primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .stats-icon.success {
+      background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+      color: white;
+    }
+    
+    .stats-icon.warning {
+      background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+      color: white;
+    }
+    
+    .stats-icon.info {
+      background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+      color: white;
+    }
+    
+    .stats-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+    
+    .stats-label {
+      color: #6c757d;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .admin-header {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .section-card {
+      background: white;
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+    
+    .table-actions {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 1001;
+      background: var(--dark);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+    }
+    
+    @media (max-width: 768px) {
+      .admin-sidebar {
+        transform: translateX(-100%);
+      }
+      
+      .admin-sidebar.show {
+        transform: translateX(0);
+      }
+      
+      .admin-content {
+        margin-left: 0;
+        padding: 5rem 1rem 1rem;
+      }
+      
+      .mobile-toggle {
+        display: block;
+      }
+      
+      .table-responsive {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  
+  <!-- MOBILE TOGGLE -->
+  <button class="mobile-toggle" id="sidebarToggle">
+    <i class="bi bi-list"></i> Menú
+  </button>
+  
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-brand">
+      <i class="bi bi-building"></i> ADMIN PANEL
+    </div>
+    
+    <ul class="sidebar-menu">
+      <li>
+        <a href="#dashboard" class="menu-link active" data-section="dashboard">
+          <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+      </li>
+      <li>
+        <a href="#rooms" class="menu-link" data-section="rooms">
+          <i class="bi bi-door-closed"></i> Habitaciones
+        </a>
+      </li>
+      <li>
+        <a href="#bookings" class="menu-link" data-section="bookings">
+          <i class="bi bi-calendar-check"></i> Reservas
+        </a>
+      </li>
+      <li>
+        <a href="#users" class="menu-link" data-section="users">
+          <i class="bi bi-people"></i> Usuarios
+        </a>
+      </li>
+      <li>
+        <a href="#" id="logoutBtn">
+          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+        </a>
+      </li>
+    </ul>
+    
+    <div class="px-3 mt-4">
+      <div class="text-center text-white-50 small">
+        <p class="mb-1">Bienvenido,</p>
+        <p class="fw-bold text-gold" id="adminName">Administrador</p>
+      </div>
+    </div>
+  </aside>
+  
+  <!-- MAIN CONTENT -->
+  <main class="admin-content">
+    
+    <!-- DASHBOARD SECTION -->
+    <div id="dashboard-section" class="content-section">
+      <div class="admin-header">
+        <h2 class="mb-0">
+          <i class="bi bi-speedometer2 text-gold"></i> Dashboard
+        </h2>
+        <p class="text-muted mb-0">Resumen general del sistema</p>
+      </div>
+      
+      <!-- STATISTICS -->
+      <div class="row g-4 mb-4">
+        <div class="col-md-3 col-sm-6">
+          <div class="stats-card">
+            <div class="stats-icon primary">
+              <i class="bi bi-door-closed"></i>
+            </div>
+            <div class="stats-number" id="totalRooms">0</div>
+            <div class="stats-label">Total Habitaciones</div>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+          <div class="stats-card">
+            <div class="stats-icon success">
+              <i class="bi bi-calendar-check"></i>
+            </div>
+            <div class="stats-number" id="activeBookings">0</div>
+            <div class="stats-label">Reservas Activas</div>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+          <div class="stats-card">
+            <div class="stats-icon warning">
+              <i class="bi bi-people"></i>
+            </div>
+            <div class="stats-number" id="totalUsers">0</div>
+            <div class="stats-label">Usuarios</div>
+          </div>
+        </div>
+        
+        <div class="col-md-3 col-sm-6">
+          <div class="stats-card">
+            <div class="stats-icon info">
+              <i class="bi bi-currency-dollar"></i>
+            </div>
+            <div class="stats-number" id="totalRevenue">$0</div>
+            <div class="stats-label">Ingresos Totales</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- RECENT BOOKINGS -->
+      <div class="section-card">
+        <h4 class="mb-4">
+          <i class="bi bi-clock-history text-gold"></i> Reservas Recientes
+        </h4>
+        <div class="table-responsive">
+          <table class="table table-hover" id="recentBookingsTable">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Habitación</th>
+                <th>Cliente</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="6" class="text-center text-muted">Cargando...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- ROOMS SECTION -->
+    <div id="rooms-section" class="content-section" style="display: none;">
+      <div class="admin-header">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+          <div>
+            <h2 class="mb-0">
+              <i class="bi bi-door-closed text-gold"></i> Gestión de Habitaciones
+            </h2>
+            <p class="text-muted mb-0">Administra las habitaciones del hotel</p>
+          </div>
+          <button class="btn btn-gold" data-bs-toggle="modal" data-bs-target="#roomModal" onclick="openRoomModal()">
+            <i class="bi bi-plus-circle"></i> Nueva Habitación
+          </button>
+        </div>
+      </div>
+      
+      <div class="section-card">
+        <div class="table-responsive">
+          <table class="table table-hover" id="roomsTable">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Personas</th>
+                <th>Camas</th>
+                <th>Precio/Noche</th>
+                <th>Servicios</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="7" class="text-center text-muted">Cargando...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- BOOKINGS SECTION -->
+    <div id="bookings-section" class="content-section" style="display: none;">
+      <div class="admin-header">
+        <h2 class="mb-0">
+          <i class="bi bi-calendar-check text-gold"></i> Gestión de Reservas
+        </h2>
+        <p class="text-muted mb-0">Administra todas las reservas</p>
+      </div>
+      
+      <div class="section-card">
+        <div class="mb-3">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="bookingFilter" id="allBookings" checked>
+            <label class="btn btn-outline-dark" for="allBookings">Todas</label>
+            
+            <input type="radio" class="btn-check" name="bookingFilter" id="confirmedBookings">
+            <label class="btn btn-outline-success" for="confirmedBookings">Confirmadas</label>
+            
+            <input type="radio" class="btn-check" name="bookingFilter" id="cancelledBookings">
+            <label class="btn btn-outline-danger" for="cancelledBookings">Canceladas</label>
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-hover" id="bookingsTable">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Habitación</th>
+                <th>Cliente</th>
+                <th>Check-in</th>
+                <th>Check-out</th>
+                <th>Personas</th>
+                <th>Total</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="9" class="text-center text-muted">Cargando...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <!-- USERS SECTION -->
+    <div id="users-section" class="content-section" style="display: none;">
+      <div class="admin-header">
+        <h2 class="mb-0">
+          <i class="bi bi-people text-gold"></i> Gestión de Usuarios
+        </h2>
+        <p class="text-muted mb-0">Administra los usuarios del sistema</p>
+      </div>
+      
+      <div class="section-card">
+        <div class="table-responsive">
+          <table class="table table-hover" id="usersTable">
+            <thead class="table-dark">
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Rol</th>
+                <th>Fecha Registro</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="7" class="text-center text-muted">Cargando...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+  </main>
+  
+  <!-- MODAL HABITACIÓN -->
+  <div class="modal fade" id="roomModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title" id="roomModalTitle">
+            <i class="bi bi-door-closed"></i> Nueva Habitación
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="roomForm">
+            <input type="hidden" id="roomId">
+            
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="roomName" class="form-label">Nombre *</label>
+                <input type="text" class="form-control" id="roomName" required>
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label for="roomImage" class="form-label">Imagen *</label>
+                <input type="text" class="form-control" id="roomImage" placeholder="nombre-imagen.jpg" required>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label for="roomDescription" class="form-label">Descripción *</label>
+              <textarea class="form-control" id="roomDescription" rows="3" required></textarea>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <label for="roomBeds" class="form-label">Camas *</label>
+                <input type="number" class="form-control" id="roomBeds" min="1" required>
+              </div>
+              
+              <div class="col-md-4 mb-3">
+                <label for="roomPersons" class="form-label">Personas *</label>
+                <input type="number" class="form-control" id="roomPersons" min="1" required>
+              </div>
+              
+              <div class="col-md-4 mb-3">
+                <label for="roomPrice" class="form-label">Precio/Noche *</label>
+                <input type="number" class="form-control" id="roomPrice" min="0" step="1000" required>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label">Servicios</label>
+              <div id="servicesContainer">
+                <div class="input-group mb-2">
+                  <input type="text" class="form-control service-input" placeholder="Ej: WiFi">
+                  <button type="button" class="btn btn-outline-secondary" onclick="addServiceInput()">
+                    <i class="bi bi-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-gold">
+                <i class="bi bi-save"></i> Guardar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module" src="js/admin.js"></script>
+  <script type="module">
+    import {
+      isAdmin,
+      logout,
+      getCurrentUser,
+      getStatistics,
+      getRooms,
+      getBookings,
+      getUsers,
+      getRoomById,
+      getUserById,
+      addRoom,
+      updateRoom,
+      deleteRoom,
+      cancelBooking as cancelBookingStorage,
+      formatPrice,
+      formatDate
+    } from './js/storage.js';
+    
+    // Verificar que sea admin
+    if (!isAdmin()) {
+      alert('Acceso denegado. Solo administradores.');
+      window.location.href = 'index.html';
+    }
+    
+    const user = getCurrentUser();
+    document.getElementById('adminName').textContent = user.nombre;
+    
+    // Variables globales
+    let currentRoomId = null;
+    const roomModal = new bootstrap.Modal(document.getElementById('roomModal'));
+    
+    // Sidebar toggle móvil
+    document.getElementById('sidebarToggle').addEventListener('click', () => {
+      document.getElementById('adminSidebar').classList.toggle('show');
+    });
+    
+    // Navegación
+    document.querySelectorAll('.menu-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = link.dataset.section;
+        
+        // Actualizar menú activo
+        document.querySelectorAll('.menu-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        
+        // Mostrar sección
+        document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
+        document.getElementById(`${section}-section`).style.display = 'block';
+        
+        // Cargar datos
+        if (section === 'dashboard') loadDashboard();
+        else if (section === 'rooms') loadRooms();
+        else if (section === 'bookings') loadBookings();
+        else if (section === 'users') loadUsers();
+        
+            // Ocultar sidebar en móvil
+            document.getElementById('adminSidebar').classList.remove('show');
+        });
+
+    // Cerrar sesión
+    document.getElementById('logoutBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      logout();
+      window.location.href = 'login.html';
+    });
+
+    // Cargar dashboard inicialmente
+    loadDashboard();
+
+    // Funciones de carga de datos
+    function loadDashboard() {
+      const stats = getStatistics();
+      document.getElementById('totalRooms').textContent = stats.totalRooms;
+      document.getElementById('activeBookings').textContent = stats.activeBookings;
+      document.getElementById('totalUsers').textContent = stats.totalUsers;
+      document.getElementById('totalRevenue').textContent = formatPrice(stats.totalRevenue);
+        loadRecentBookings();
+    };  
+
+    function loadRecentBookings() {
+      const bookings = getBookings().sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion)).slice(0, 5);
+      const tbody = document.querySelector('#recentBookingsTable tbody');
+      tbody.innerHTML = '';
+
+      if (bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No hay reservas recientes</td></tr>';
+        return;
+      }
+
+      bookings.forEach(booking => {
+        const room = getRoomById(booking.habitacionId);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${booking.id}</td>
+          <td>${room ? room.nombre : 'N/A'}</td>
+          <td>${booking.nombreCliente}</td>
+          <td>${formatDate(booking.checkIn)}</td>
+          <td>
+            <span class="badge bg-${booking.estado === 'confirmada' ? 'success' : 'danger'}">
+              ${booking.estado.charAt(0).toUpperCase() + booking.estado.slice(1)}
+            </span>
+          </td>
+          <td>${formatPrice(booking.total)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function loadRooms() {
+      const rooms = getRooms();
+      const tbody = document.querySelector('#roomsTable tbody');
+      tbody.innerHTML = '';
+
+      if (rooms.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No hay habitaciones</td></tr>';
+        return;
+      }
+
+      rooms.forEach(room => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${room.id}</td>
+          <td>${room.nombre}</td>
+          <td>${room.personas}</td>
+          <td>${room.camas}</td>
+          <td>${formatPrice(room.precioNoche)}</td>
+          <td>${room.servicios.join(', ')}</td>
+          <td class="table-actions">
+            <button class="btn btn-sm btn-outline-primary" onclick="openRoomModal(${room.id})">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteRoomById(${room.id})">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    function loadBookings() {
+      const bookings = getBookings();
+      const tbody = document.querySelector('#bookingsTable tbody');
+      tbody.innerHTML = '';
+
+      if (bookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">No hay reservas</td></tr>';
+        return;
+      }
+
+      bookings.forEach(booking => {
+        const room = getRoomById(booking.habitacionId);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${booking.id}</td>
+          <td>${room ? room.nombre : 'N/A'}</td>
+          <td>${booking.nombreCliente}</td>
+          <td>${formatDate(booking.checkIn)}</td>
+          <td>${formatDate(booking.checkOut)}</td>
+          <td>${booking.personas}</td>
+          <td>${formatPrice(booking.total)}</td>
+          <td>
+            <span class="badge bg-${booking.estado === 'confirmada' ? 'success' : 'danger'}">
+              ${booking.estado.charAt(0).toUpperCase() + booking.estado.slice(1)}
+            </span>
+          </td>
+          <td class="table-actions">
+            ${booking.estado === 'confirmada' ? `
+              <button class="btn btn-sm btn-outline-danger" onclick="cancelBooking(${booking.id})">
+                <i class="bi bi-x-circle"></i> Cancelar
+              </button>
+            ` : ''}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Filtros
+      document.getElementById('allBookings').addEventListener('change', filterBookings);
+      document.getElementById('confirmedBookings').addEventListener('change', filterBookings);
+      document.getElementById('cancelledBookings').addEventListener('change', filterBookings);
+    }
+    function loadUsers() {
+      const users = getUsers();
+      const tbody = document.querySelector('#usersTable tbody');
+      tbody.innerHTML = '';
+
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No hay usuarios</td></tr>';
+        return;
+      }
+
+      users.forEach(user => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${user.id}</td>
+          <td>${user.nombre}</td>
+          <td>${user.email}</td>
+          <td>${user.telefono || 'N/A'}</td>
+          <td>${user.rol.charAt(0).toUpperCase() + user.rol.slice(1)}</td>
+          <td>${formatDate(user.fechaRegistro)}</td>
+          <td class="table-actions">
+            <button class="btn btn-sm btn-outline-primary" onclick="viewUser(${user.id})">
+              <i class="bi bi-eye"></i>
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+    // Funciones de gestión de habitaciones
+    function openRoomModal(id = null) {
+
+        currentRoomId = id;
+        document.getElementById('roomForm').reset();
+        document.getElementById('servicesContainer').innerHTML = `
+            <div class="input-group mb-2">
+            <input type="text" class="form-control service-input" placeholder="Ej: WiFi">
+            <button type="button" class="btn btn-outline-secondary" onclick="addServiceInput()">
+                <i class="bi bi-plus"></i>
+            </button>
+            </div>
+        `;
+    
+        if (id) {
+            const room = getRoomById(id);
+            if (room) {
+            document.getElementById('roomModalTitle').innerHTML = `<i class="bi bi-pencil"></i> Editar Habitación`;
+            document.getElementById('roomId').value = room.id;
+            document.getElementById('roomName').value = room.nombre;
+            document.getElementById('roomImage').value = room.imagen;
+            document.getElementById('roomDescription').value = room.descripcion;
+            document.getElementById('roomBeds').value = room.camas;
+            document.getElementById('roomPersons').value = room.personas;
+            document.getElementById('roomPrice').value = room.precioNoche;
+    
+            // Cargar servicios
+            const servicesContainer = document.getElementById('servicesContainer');
+            servicesContainer.innerHTML = '';
+            room.servicios.forEach((servicio, index) => {
+                const div = document.createElement('div');
+                div.className = 'input-group mb-2';
+                div.innerHTML = `
+                <input type="text" class="form-control service-input" value="${servicio}" placeholder="Ej: WiFi">
+                <button type="button" class="btn btn-outline-danger" onclick="removeServiceInput(this)">
+                    <i class="bi bi-dash"></i>
+                </button>
+                `;
+                servicesContainer.appendChild(div);
+            });
+    
+            // Añadir botón para agregar más servicios
+            const addDiv = document.createElement('div');
+            addDiv.className = 'input-group mb-2';
+            addDiv.innerHTML = `
+                <input type="text" class="form-control service-input" placeholder="Ej: WiFi">
+                <button type="button" class="btn btn-outline-secondary" onclick="addServiceInput()">
+                <i class="bi bi-plus"></i>
+                </button>
+            `;
+            servicesContainer.appendChild(addDiv);
+            }
+        } else {
+            document.getElementById('roomModalTitle').innerHTML = `<i class="bi bi-door-closed"></i> Nueva Habitación`;
+            document.getElementById('roomId').value = '';
+        }
+        roomModal.show();
+    }
+
+    function addServiceInput() {
+      const servicesContainer = document.getElementById('servicesContainer');
+      const div = document.createElement('div');
+      div.className = 'input-group mb-2';
+      div.innerHTML = `
+        <input type="text" class="form-control service-input" placeholder="Ej: WiFi">
+        <button type="button" class="btn btn-outline-danger" onclick="removeServiceInput(this)">
+          <i class="bi bi-dash"></i>
+        </button>
+      `;
+      servicesContainer.appendChild(div);
+    }
+
+    function removeServiceInput(button) {
+      const div = button.parentElement;
+      div.remove();
+    }
+
+    document.getElementById('roomForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const id = document.getElementById('roomId').value;
+      const nombre = document.getElementById('roomName').value.trim();
+      const imagen = document.getElementById('roomImage').value.trim();
+      const descripcion = document.getElementById('roomDescription').value.trim();
+      const camas = parseInt(document.getElementById('roomBeds').value);
+      const personas = parseInt(document.getElementById('roomPersons').value);
+      const precioNoche = parseFloat(document.getElementById('roomPrice').value);
+      
+      const servicios = Array.from(document.querySelectorAll('.service-input'))
+        .map(input => input.value.trim())
+        .filter(val => val !== '');
+      
+      if (!nombre || !imagen || !descripcion || isNaN(camas) || isNaN(personas) || isNaN(precioNoche)) {
+        alert('Por favor, completa todos los campos obligatorios.');
+        return;
+      }
+      
+      const roomData = { nombre, imagen, descripcion, camas, personas, precioNoche, servicios };
+      
+      if (id) {
+        // Actualizar habitación
+        updateRoom(parseInt(id), roomData);
+        alert('Habitación actualizada correctamente.');
+      } else {
+        // Añadir nueva habitación
+        addRoom(roomData);
+        alert('Nueva habitación añadida correctamente.');
+      }
+      
+      roomModal.hide();
+      loadRooms();
+      loadDashboard();
+    });
+
+    window.openRoomModal = openRoomModal;
+    window.addServiceInput = addServiceInput;
+    window.removeServiceInput = removeServiceInput;
+    window.deleteRoomById = function(id) {
+      if (confirm('¿Estás seguro de eliminar esta habitación? Esta acción no se puede deshacer.')) {
+        deleteRoom(id);
+        alert('Habitación eliminada correctamente.');
+        loadRooms();
+        loadDashboard();
+      }
+    };
+    window.cancelBooking = function(id) {
+      if (confirm('¿Estás seguro de cancelar esta reserva?')) {
+        cancelBookingStorage(id);
+        alert('Reserva cancelada correctamente.');
+        loadBookings();
+        loadDashboard();
+      }
+    };
+
+    window.viewUser = function(id) {
+      const user = getUserById(id);
+      if (user) {
+        alert(`
+          ID: ${user.id}
+          Nombre: ${user.nombre}
+          Email: ${user.email}
+          Teléfono: ${user.telefono || 'N/A'}
+          Rol: ${user.rol.charAt(0).toUpperCase() + user.rol.slice(1)}
+          Fecha Registro: ${formatDate(user.fechaRegistro)}
+        `);
+      } else {
+        alert('Usuario no encontrado.');
+      }
+    };
+
+    function filterBookings() {
+      const all = document.getElementById('allBookings').checked;
+      const confirmed = document.getElementById('confirmedBookings').checked;
+      const cancelled = document.getElementById('cancelledBookings').checked;
+
+      const bookings = getBookings();
+      const tbody = document.querySelector('#bookingsTable tbody');
+      tbody.innerHTML = '';
+
+      let filteredBookings = bookings;
+      if (confirmed) {
+        filteredBookings = bookings.filter(b => b.estado === 'confirmada');
+      } else if (cancelled) {
+        filteredBookings = bookings.filter(b => b.estado === 'cancelada');
+      }
+
+      if (filteredBookings.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" class="text-center text-muted">No hay reservas</td></tr>';
+        return;
+      }
+
+      filteredBookings.forEach(booking => {
+        const room = getRoomById(booking.habitacionId);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${booking.id}</td>
+          <td>${room ? room.nombre : 'N/A'}</td>
+          <td>${booking.nombreCliente}</td>
+          <td>${formatDate(booking.checkIn)}</td>
+          <td>${formatDate(booking.checkOut)}</td>
+          <td>${booking.personas}</td>
+          <td>${formatPrice(booking.total)}</td>
+          <td>
+            <span class="badge bg-${booking.estado === 'confirmada' ? 'success' : 'danger'}">
+              ${booking.estado.charAt(0).toUpperCase() + booking.estado.slice(1)}
+            </span>
+          </td>
+          <td class="table-actions">
+            ${booking.estado === 'confirmada' ? `
+              <button class="btn btn-sm btn-outline-danger" onclick="cancelBooking(${booking.id})">
+                <i class="bi bi-x-circle"></i> Cancelar
+              </button>
+            ` : ''}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }                 
