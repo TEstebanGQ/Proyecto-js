@@ -1,0 +1,59 @@
+// ========================================
+// SCRIPT LOGIN
+// ========================================
+
+import { login, isAuthenticated, isAdmin } from './storage.js';
+
+// Redirigir si ya está autenticado
+if (isAuthenticated()) {
+  if (isAdmin()) {
+    window.location.href = 'admin.html';
+  } else {
+    window.location.href = 'mis-reservas.html';
+  }
+}
+
+const form = document.getElementById('loginForm');
+const alertContainer = document.getElementById('alertContainer');
+
+function showAlert(message, type = 'danger') {
+  alertContainer.innerHTML = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+      <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+  `;
+  
+  setTimeout(() => {
+    alertContainer.innerHTML = '';
+  }, 5000);
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  
+  if (!email || !password) {
+    showAlert('Por favor completa todos los campos');
+    return;
+  }
+  
+  const result = login(email, password);
+  
+  if (result.success) {
+    showAlert('Inicio de sesión exitoso. Redirigiendo...', 'success');
+    
+    setTimeout(() => {
+      if (result.user.role === 'admin') {
+        window.location.href = 'admin.html';
+      } else {
+        window.location.href = 'mis-reservas.html';
+      }
+    }, 1500);
+  } else {
+    showAlert(result.error || 'Error al iniciar sesión');
+  }
+});
