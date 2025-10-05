@@ -3,11 +3,14 @@
    ======================================== */
 
 .contact-header {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.85) 0%, rgba(45, 45, 45, 0.85) 100%),
+              url('../assets/img/hero/imagen-hero4.png') center/cover no-repeat;
+  background-attachment: fixed;
   color: white;
   padding: 8rem 0 4rem;
   margin-top: 56px;
   text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  position: relative;
 }
 
 .contact-header h1,
