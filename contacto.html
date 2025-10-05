@@ -8,90 +8,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
   <link rel="stylesheet" href="css/styles.css">
-  
-  <style>
-    .contact-header {
-      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-      color: white;
-      padding: 8rem 0 4rem;
-      margin-top: 56px;
-    }
-    
-    .contact-card {
-      background: white;
-      border-radius: 15px;
-      padding: 2rem;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      height: 100%;
-      transition: all 0.3s ease;
-    }
-    
-    .contact-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    }
-    
-    .contact-icon {
-      width: 70px;
-      height: 70px;
-      background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      color: white;
-      margin: 0 auto 1.5rem;
-    }
-    
-    .map-container {
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-      height: 450px;
-    }
-    
-    .contact-form {
-      background: white;
-      border-radius: 15px;
-      padding: 2.5rem;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    }
-    
-    .social-icon {
-      width: 50px;
-      height: 50px;
-      background: var(--dark);
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.3rem;
-      margin: 0 0.5rem;
-      transition: all 0.3s ease;
-    }
-    
-    .social-icon:hover {
-      background: var(--gold);
-      color: var(--dark);
-      transform: translateY(-3px);
-    }
-    
-    @media (max-width: 768px) {
-      .contact-header {
-        padding: 6rem 0 3rem;
-      }
-      
-      .map-container {
-        height: 300px;
-      }
-      
-      .contact-form {
-        padding: 1.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/navbar-logo.css">
+  <link rel="stylesheet" href="css/contacto.css">
 </head>
 <body>
   
@@ -99,6 +17,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
       <a class="navbar-brand" href="index.html">
+        <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
         <span class="brand-text">EL RINCÓN DEL CARMEN</span>
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -107,8 +26,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-          <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#habitaciones">Habitaciones</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#servicios">Servicios</a></li>
           <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
           <li class="nav-item"><a class="nav-link" href="login.html">
             <i class="bi bi-person-circle"></i> Ingresar
           </a></li>
