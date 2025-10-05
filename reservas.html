@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reservas | El Rincón del Carmen</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">El Rincón del Carmen</a>
+  </div>
+</nav>
+
+<section class="py-5 mt-4">
+  <div class="container">
+    <h2 class="text-center mb-4">Consulta y Reserva tu Habitación</h2>
+    <form id="formBusqueda" class="row g-3 justify-content-center">
+      <div class="col-md-3">
+        <label for="fechaInicio" class="form-label">Fecha inicio</label>
+        <input type="date" id="fechaInicio" class="form-control" required>
+      </div>
+      <div class="col-md-3">
+        <label for="fechaFin" class="form-label">Fecha fin</label>
+        <input type="date" id="fechaFin" class="form-control" required>
+      </div>
+      <div class="col-md-2">
+        <label for="personas" class="form-label">Personas</label>
+        <input type="number" id="personas" class="form-control" min="1" value="1" required>
+      </div>
+      <div class="col-md-2 d-flex align-items-end">
+        <button class="btn btn-primary w-100" type="submit">Buscar</button>
+      </div>
+    </form>
+
+    <div id="resultados" class="mt-5 row g-4"></div>
+  </div>
+</section>
+
+<footer class="bg-dark text-white text-center py-3">
+  <p class="mb-0">© 2025 Hotel El Rincón del Carmen</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/reservas.js"></script>
+</body>
+</html>
