@@ -17,74 +17,83 @@ export const STORAGE_KEYS = {
 export function initializeData() {
   // Inicializar habitaciones si no existen
   if (!getItem(STORAGE_KEYS.rooms)) {
-    const defaultRooms = [
-      {
-        id: 1,
-        nombre: 'Suite Deluxe',
-        descripcion: 'Amplia suite con vista panorámica de la ciudad, jacuzzi privado y sala de estar.',
-        camas: 2,
-        personas: 4,
-        precio: 320000,
-        servicios: ['WiFi', 'Jacuzzi', 'Minibar', 'TV 55"', 'Aire Acondicionado'],
-        imagen: 'suite-deluxe.jpg',
-        disponible: true
-      },
-      {
-        id: 2,
-        nombre: 'Suite Ejecutiva',
-        descripcion: 'Perfecta para viajeros de negocios, incluye escritorio amplio y zona de trabajo.',
-        camas: 1,
-        personas: 2,
-        precio: 280000,
-        servicios: ['WiFi', 'Minibar', 'Escritorio', 'TV 50"', 'Caja Fuerte'],
-        imagen: 'suite-ejecutiva.jpg',
-        disponible: true
-      },
-      {
-        id: 3,
-        nombre: 'Suite Presidencial',
-        descripcion: 'Máximo lujo con dos habitaciones, jacuzzi, terraza privada y mayordomo.',
-        camas: 3,
-        personas: 6,
-        precio: 580000,
-        servicios: ['WiFi', 'Jacuzzi', 'Terraza', 'Mayordomo', 'Minibar Premium', 'TV 65"'],
-        imagen: 'suite-presidencial.jpg',
-        disponible: true
-      },
-      {
-        id: 4,
-        nombre: 'Suite Romántica',
-        descripcion: 'Escapada perfecta para parejas con cama king size y decoración íntima.',
-        camas: 1,
-        personas: 2,
-        precio: 350000,
-        servicios: ['WiFi', 'Jacuzzi', 'Velas Aromáticas', 'Champagne', 'Pétalos de Rosa'],
-        imagen: 'suite-romantica.jpg',
-        disponible: true
-      },
-      {
-        id: 5,
-        nombre: 'Suite Familiar',
-        descripcion: 'Espacio ideal para familias con dos habitaciones conectadas y área de juegos.',
-        camas: 4,
-        personas: 6,
-        precio: 420000,
-        servicios: ['WiFi', 'Minibar', 'Área de Juegos', 'TV 55"', 'Cocina'],
-        imagen: 'suite-familiar.jpg',
-        disponible: true
-      },
-      {
-        id: 6,
-        nombre: 'Suite Junior',
-        descripcion: 'Habitación confortable y moderna con todas las comodidades esenciales.',
-        camas: 1,
-        personas: 2,
-        precio: 180000,
-        servicios: ['WiFi', 'TV 42"', 'Minibar', 'Aire Acondicionado'],
-        imagen: 'suite-junior.jpg',
-        disponible: true
-      }
-    ];
+    // Dentro de la función initializeData() en storage.js
+// REEMPLAZA la parte de defaultRooms con esto:
+
+const defaultRooms = [
+  {
+    id: 1,
+    nombre: 'Suite Deluxe',
+    descripcion: 'Amplia suite con vista panorámica de la ciudad, jacuzzi privado y sala de estar.',
+    camas: 2,
+    personas: 4,
+    precio: 320000,
+    precioNoche: 320000, 
+    servicios: ['WiFi', 'Jacuzzi', 'Minibar', 'TV 55"', 'Aire Acondicionado'],
+    imagen: 'room2.png', 
+    disponible: true
+  },
+  {
+    id: 2,
+    nombre: 'Suite Ejecutiva',
+    descripcion: 'Perfecta para viajeros de negocios, incluye escritorio amplio y zona de trabajo.',
+    camas: 1,
+    personas: 2,
+    precio: 280000,
+    precioNoche: 280000,
+    servicios: ['WiFi', 'Minibar', 'Escritorio', 'TV 50"', 'Caja Fuerte'],
+    imagen: 'room4.png', 
+    disponible: true
+  },
+  {
+    id: 3,
+    nombre: 'Suite Presidencial',
+    descripcion: 'Máximo lujo con dos habitaciones, jacuzzi, terraza privada y mayordomo.',
+    camas: 3,
+    personas: 6,
+    precio: 580000,
+    precioNoche: 580000,
+    servicios: ['WiFi', 'Jacuzzi', 'Terraza', 'Mayordomo', 'Minibar Premium', 'TV 65"'],
+    imagen: 'room3.png', 
+    disponible: true
+  },
+  {
+    id: 4,
+    nombre: 'Suite Romántica',
+    descripcion: 'Escapada perfecta para parejas con cama king size y decoración íntima.',
+    camas: 1,
+    personas: 2,
+    precio: 350000,
+    precioNoche: 350000,
+    servicios: ['WiFi', 'Jacuzzi', 'Velas Aromáticas', 'Champagne', 'Pétalos de Rosa'],
+    imagen: 'room7.png', 
+    disponible: true
+  },
+  {
+    id: 5,
+    nombre: 'Suite Familiar',
+    descripcion: 'Espacio ideal para familias con dos habitaciones conectadas y área de juegos.',
+    camas: 4,
+    personas: 6,
+    precio: 420000,
+    precioNoche: 420000,
+    servicios: ['WiFi', 'Minibar', 'Área de Juegos', 'TV 55"', 'Cocina'],
+    imagen: 'room5.png', 
+    disponible: true
+  },
+  {
+    id: 6,
+    nombre: 'Suite Junior',
+    descripcion: 'Habitación confortable y moderna con todas las comodidades esenciales.',
+    camas: 1,
+    personas: 2,
+    precio: 180000,
+    precioNoche: 180000,
+    servicios: ['WiFi', 'TV 42"', 'Aire Acondicionado'],
+    imagen: 'room6.png',
+    disponible: true
+  }
+];
     setItem(STORAGE_KEYS.rooms, defaultRooms);
   }
 
