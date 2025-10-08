@@ -1,0 +1,287 @@
+/* ===================================
+   HABITACIONES.CSS
+   Estilos para la página de catálogo
+   =================================== */
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('../assets/img/rooms/room3.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 150px 0 100px;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+}
+
+.hero-section .container {
+    position: relative;
+    z-index: 1;
+}
+
+/* Sección de Filtros */
+.filter-section {
+    background: #f8f9fa;
+    padding: 30px 0;
+    margin-bottom: 50px;
+    border-bottom: 3px solid #d4af37;
+}
+
+.filter-btn {
+    margin: 5px;
+    padding: 10px 25px;
+    border: 2px solid #d4af37;
+    background: white;
+    color: #d4af37;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.filter-btn:hover {
+    background: #d4af37;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+}
+
+.filter-btn.active {
+    background: #d4af37;
+    color: white;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Tarjetas de Habitaciones */
+.room-item {
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.room-item.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    height: 0;
+    overflow: hidden;
+}
+
+.room-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+    border: none;
+    overflow: hidden;
+    border-radius: 10px;
+    background: white;
+}
+
+.room-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.room-card img {
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.room-card:hover img {
+    transform: scale(1.1);
+}
+
+.room-card .card-body {
+    padding: 25px;
+}
+
+.room-card .card-title {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.room-card .card-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    min-height: 60px;
+}
+
+/* Precio de la Habitación */
+.room-price {
+    color: #d4af37;
+    font-size: 1.75rem;
+    font-weight: bold;
+    font-family: 'Georgia', serif;
+}
+
+/* Features/Badges */
+.room-features {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 15px 0;
+}
+
+.feature-badge {
+    background: #f8f9fa;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    color: #495057;
+    border: 1px solid #e9ecef;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.3s ease;
+}
+
+.feature-badge:hover {
+    background: #e9ecef;
+    border-color: #d4af37;
+}
+
+.feature-badge i {
+    font-size: 0.9rem;
+}
+
+/* Botón Ver Más */
+.btn-details {
+    background: #d4af37;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-details:hover {
+    background: #b8941f;
+    color: white;
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Badges de Estado */
+.badge {
+    font-size: 0.85rem;
+    padding: 8px 15px;
+    font-weight: 600;
+}
+
+/* Sección de Beneficios */
+.benefit-icon i {
+    transition: all 0.3s ease;
+}
+
+.benefit-icon:hover i {
+    transform: scale(1.2) rotate(10deg);
+    color: #b8941f !important;
+}
+
+/* Utilidades */
+.text-gold {
+    color: #d4af37 !important;
+}
+
+/* Footer */
+.footer {
+    background: #1a1a1a;
+    padding: 50px 0 20px;
+    margin-top: 80px;
+}
+
+.footer h5 {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer a {
+    color: #aaa;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.footer a:hover {
+    color: #d4af37;
+    padding-left: 5px;
+}
+
+.footer ul {
+    padding-left: 0;
+}
+
+.footer li {
+    margin-bottom: 8px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 120px 0 80px;
+    }
+
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+
+    .filter-btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+
+    .room-card img {
+        height: 200px;
+    }
+
+    .room-price {
+        font-size: 1.5rem;
+    }
+
+    .btn-details {
+        padding: 8px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .filter-section h5 {
+        font-size: 1rem;
+    }
+
+    .filter-btn {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+        margin: 3px;
+    }
+
+    .room-features {
+        gap: 5px;
+    }
+
+    .feature-badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+}

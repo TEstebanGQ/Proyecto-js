@@ -1,11 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Nuestras Habitaciones - Hotel El Rincón del Carmen</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/navbar-logo.css">
+    <link rel="stylesheet" href="css/habitaciones.css">
 </head>
 <body>
-    
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
+                <span class="brand-text">EL RINCÓN DEL CARMEN</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="habitaciones.html">Habitaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="bi bi-person-circle"></i> Ingresar</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="display-3 fw-bold mb-3">Nuestras Habitaciones</h1>
+            <p class="lead mb-0">Descubre el espacio perfecto para tu estadía</p>
+        </div>
+    </section>
+
+    <!-- FILTROS -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="text-center">
+                <h5 class="mb-3">Filtrar por categoría:</h5>
+                <button class="filter-btn active" data-filter="all">Todas</button>
+                <button class="filter-btn" data-filter="deluxe">Deluxe</button>
+                <button class="filter-btn" data-filter="presidencial">Presidencial</button>
+                <button class="filter-btn" data-filter="familiar">Familiar</button>
+                <button class="filter-btn" data-filter="romantica">Romántica</button>
+                <button class="filter-btn" data-filter="ejecutiva">Ejecutiva</button>
+                <button class="filter-btn" data-filter="junior">Junior</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATÁLOGO DE HABITACIONES -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+
+                <!-- HABITACIÓN 1: Suite Deluxe -->
+                <div class="col-lg-4 col-md-6 room-item" data-category="deluxe">
+                    <div class="card room-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="assets/img/rooms/room2.webp" class="card-img-top" alt="Suite Deluxe">
+                            <span class="badge bg-warning position-absolute top-0 end-0 m-3">Popular</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Suite Deluxe</h4>
+                            <p class="card-text text-muted">Lujo y comodidad en cada detalle. Experiencia superior con acabados de primera calidad.</p>
+                            
+                            <div class="room-features">
+                                <span class="feature-badge"><i class="bi bi-people"></i> 2 Personas</span>
+                                <span class="feature-badge"><i class="bi bi-rulers"></i> 45 m²</span>
+                                <span class="feature-badge"><i class="bi bi-wifi"></i> WiFi</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <div class="room-price">$350.000</div>
+                                    <small class="text-muted">por noche</small>
+                                </div>
+                                <a href="html/habitacion1.html" class="btn btn-details">
+                                    Ver más <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HABITACIÓN 2: Suite Presidencial -->
+                <div class="col-lg-4 col-md-6 room-item" data-category="presidencial">
+                    <div class="card room-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="assets/img/rooms/room3.webp" class="card-img-top" alt="Suite Presidencial">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3">Premium</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Suite Presidencial</h4>
+                            <p class="card-text text-muted">La máxima expresión de elegancia y lujo. Jacuzzi privado y servicio de mayordomo 24/7.</p>
+                            
+                            <div class="room-features">
+                                <span class="feature-badge"><i class="bi bi-people"></i> 6 Personas</span>
+                                <span class="feature-badge"><i class="bi bi-rulers"></i> 120 m²</span>
+                                <span class="feature-badge"><i class="bi bi-droplet-fill"></i> Jacuzzi</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <div class="room-price">$580.000</div>
+                                    <small class="text-muted">por noche</small>
+                                </div>
+                                <a href="html/habitacion2.html" class="btn btn-details">
+                                    Ver más <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HABITACIÓN 3: Suite Familiar -->
+                <div class="col-lg-4 col-md-6 room-item" data-category="familiar">
+                    <div class="card room-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="assets/img/rooms/room5.png" class="card-img-top" alt="Suite Familiar">
+                            <span class="badge bg-info position-absolute top-0 end-0 m-3">Familiar</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Suite Familiar</h4>
+                            <p class="card-text text-muted">Espacio ideal para familias con dos habitaciones conectadas y área de juegos.</p>
+                            
+                            <div class="room-features">
+                                <span class="feature-badge"><i class="bi bi-people"></i> 6 Personas</span>
+                                <span class="feature-badge"><i class="bi bi-door-closed"></i> 4 Camas</span>
+                                <span class="feature-badge"><i class="bi bi-egg-fried"></i> Cocina</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <div class="room-price">$420.000</div>
+                                    <small class="text-muted">por noche</small>
+                                </div>
+                                <a href="html/habitacion3.html" class="btn btn-details">
+                                    Ver más <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HABITACIÓN 4: Suite Junior -->
+                <div class="col-lg-4 col-md-6 room-item" data-category="junior">
+                    <div class="card room-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="assets/img/rooms/room6.png" class="card-img-top" alt="Suite Junior">
+                            <span class="badge bg-success position-absolute top-0 end-0 m-3">Económica</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Suite Junior</h4>
+                            <p class="card-text text-muted">Confortable y moderna con todas las comodidades esenciales para una estadía placentera.</p>
+                            
+                            <div class="room-features">
+                                <span class="feature-badge"><i class="bi bi-people"></i> 2 Personas</span>
+                                <span class="feature-badge"><i class="bi bi-rulers"></i> 28 m²</span>
+                                <span class="feature-badge"><i class="bi bi-tv"></i> Smart TV</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <div class="room-price">$180.000</div>
+                                    <small class="text-muted">por noche</small>
+                                </div>
+                                <a href="html/habitacion4.html" class="btn btn-details">
+                                    Ver más <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HABITACIÓN 5: Suite Romántica -->
+                <div class="col-lg-4 col-md-6 room-item" data-category="romantica">
+                    <div class="card room-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="assets/img/rooms/room7.png" class="card-img-top" alt="Suite Romántica">
+                            <span class="badge bg-danger position-absolute top-0 end-0 m-3"><i class="bi bi-heart-fill"></i> Romántica</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Suite Romántica</h4>
+                            <p class="card-text text-muted">Escapada perfecta para parejas. Incluye jacuzzi, champagne y decoración especial.</p>
+                            
+                            <div class="room-features">
+                                <span class="feature-badge"><i class="bi bi-people"></i> 2 Personas</span>
+                                <span class="feature-badge"><i class="bi bi-heart"></i> Romántica</span>
+                                <span class="feature-badge"><i class="bi bi-droplet-half"></i> Jacuzzi</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <div class="room-price">$350.000</div>
+                                    <small class="text-muted">por noche</small>
+                                </div>
+                                <a href="html/habitacion5.html" class="btn btn-details">
+                                    Ver más <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HABITACIÓN 6: Suite Ejecutiva -->
+                <div class="col-lg-4 col-md-6 room-item" data-category="ejecutiva">
+                    <div class="card room-card shadow-sm">
+                        <div class="position-relative">
+                            <img src="assets/img/rooms/room4.png" class="card-img-top" alt="Suite Ejecutiva">
+                            <span class="badge bg-primary position-absolute top-0 end-0 m-3"><i class="bi bi-briefcase"></i> Negocios</span>
+                        </div>
+                        <div class="card-body">
+                            <h4 class="card-title mb-3">Suite Ejecutiva</h4>
+                            <p class="card-text text-muted">Ideal para viajes de negocios. Escritorio amplio y acceso al centro de negocios.</p>
+                            
+                            <div class="room-features">
+                                <span class="feature-badge"><i class="bi bi-people"></i> 2 Personas</span>
+                                <span class="feature-badge"><i class="bi bi-laptop"></i> Escritorio</span>
+                                <span class="feature-badge"><i class="bi bi-wifi"></i> WiFi Premium</span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <div>
+                                    <div class="room-price">$280.000</div>
+                                    <small class="text-muted">por noche</small>
+                                </div>
+                                <a href="html/habitacion6.html" class="btn btn-details">
+                                    Ver más <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE BENEFICIOS -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Beneficios Incluidos en Todas las Habitaciones</h2>
+            <div class="row g-4">
+                <div class="col-md-3 text-center">
+                    <div class="benefit-icon mb-3">
+                        <i class="bi bi-wifi fs-1 text-gold"></i>
+                    </div>
+                    <h5>WiFi Gratuito</h5>
+                    <p class="text-muted">Alta velocidad en todas las áreas</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="benefit-icon mb-3">
+                        <i class="bi bi-cup-hot fs-1 text-gold"></i>
+                    </div>
+                    <h5>Desayuno Incluido</h5>
+                    <p class="text-muted">Buffet completo cada mañana</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="benefit-icon mb-3">
+                        <i class="bi bi-shield-check fs-1 text-gold"></i>
+                    </div>
+                    <h5>Seguridad 24/7</h5>
+                    <p class="text-muted">Tu tranquilidad es nuestra prioridad</p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <div class="benefit-icon mb-3">
+                        <i class="bi bi-headset fs-1 text-gold"></i>
+                    </div>
+                    <h5>Atención Continua</h5>
+                    <p class="text-muted">Servicio disponible las 24 horas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION -->
+    <section class="py-5 bg-dark text-white text-center">
+        <div class="container">
+            <h2 class="mb-4">¿Listo para Reservar?</h2>
+            <p class="lead mb-4">Asegura tu habitación ideal y disfruta de una experiencia inolvidable</p>
+            <a href="reservas.html" class="btn btn-lg btn-details me-3">
+                <i class="bi bi-calendar-check"></i> Hacer Reserva
+            </a>
+            <a href="contacto.html" class="btn btn-lg btn-outline-light">
+                <i class="bi bi-chat-dots"></i> Contactar
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer bg-dark text-white">
+        <div class="container">
+            <div class="row g-4">
+                
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-gold mb-3">El Rincón del Carmen</h5>
+                    <p>Tu refugio de lujo en el corazón de Bogotá. Experiencias inolvidables desde 2020.</p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-gold mb-3">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="habitaciones.html">Habitaciones</a></li>
+                        <li><a href="reservas.html">Reservas</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                        <li><a href="login.html">Iniciar Sesión</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-gold mb-3">Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-geo-alt text-gold"></i> 
+                            Calle 93 #11-74, Bogotá D.C.
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-phone text-gold"></i> 
+                            +57 320 123 4567
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-envelope text-gold"></i> 
+                            info@rincondelcarmen.com
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-clock text-gold"></i> 
+                            Atención 24/7
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-gold mb-3">Horarios</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="bi bi-reception-4 text-gold"></i> 
+                            <strong>Recepción:</strong> 24 horas
+                        </li>
+                        <li class="mb-2">
+                            <i class="bi bi-headset text-gold"></i> 
+                            <strong>Soporte:</strong> Siempre disponible
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <p class="text-center mb-0">
+                        © 2025 Hotel El Rincón del Carmen. Todos los derechos reservados.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/habitaciones.js"></script>
 </body>
 </html>
