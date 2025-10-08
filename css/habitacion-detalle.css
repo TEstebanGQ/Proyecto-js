@@ -1,0 +1,311 @@
+/* ========================================
+   ESTILOS PÁGINA DETALLE DE HABITACIÓN
+   ======================================== */
+
+:root {
+  --gold: #d4af37;
+  --dark: #1a1a1a;
+  --bronze: #8b7355;
+}
+
+/* ========================================
+   NAVBAR
+   ======================================== */
+.navbar {
+  background: rgba(26, 26, 26, 0.98) !important;
+}
+
+/* ========================================
+   HEADER DE HABITACIÓN
+   ======================================== */
+.room-header {
+  background: linear-gradient(135deg, rgba(26, 26, 26, 0.85) 0%, rgba(45, 45, 45, 0.85) 100%),
+              url('../assets/img/rooms/room2.webp') center/cover no-repeat;
+  background-attachment: fixed;
+  color: white;
+  padding: 8rem 0 4rem;
+  margin-top: 56px;
+  position: relative;
+}
+
+.room-header h1 {
+  color: var(--gold);
+  text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
+  font-weight: 900;
+}
+
+.room-header .lead {
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.9);
+  font-weight: 500;
+}
+
+.room-header .badge {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+}
+
+/* ========================================
+   GALERÍA DE IMÁGENES
+   ======================================== */
+.room-gallery img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.room-gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* ========================================
+   TARJETAS DE CARACTERÍSTICAS
+   ======================================== */
+.feature-card {
+  background: white;
+  border-radius: 15px;
+  padding: 1.5rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  height: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  color: white;
+  margin: 0 auto 1rem;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+  transform: rotate(360deg);
+}
+
+.feature-card h5 {
+  color: var(--dark);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* ========================================
+   AMENIDADES
+   ======================================== */
+.amenity-item {
+  padding: 0.8rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.amenity-item:hover {
+  background: #e9ecef;
+  transform: translateX(5px);
+}
+
+.amenity-item i {
+  color: var(--gold);
+  font-size: 1.2rem;
+  min-width: 25px;
+}
+
+.amenity-item span {
+  color: var(--dark);
+  font-size: 0.95rem;
+}
+
+/* ========================================
+   CAJA DE PRECIO
+   ======================================== */
+.price-box {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--bronze) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 15px;
+  text-align: center;
+  position: sticky;
+  top: 80px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.price-box h3 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.price-box p {
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.price-box .text-start p {
+  font-size: 0.95rem;
+}
+
+.price-box .bi-check-circle {
+  margin-right: 0.5rem;
+}
+
+/* ========================================
+   BOTONES
+   ======================================== */
+.btn-reservar {
+  background: white;
+  color: var(--dark);
+  border: none;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-reservar:hover {
+  background: var(--dark);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn-outline-light {
+  border: 2px solid white;
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-light:hover {
+  background: white;
+  color: var(--dark);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   INFORMACIÓN ADICIONAL
+   ======================================== */
+.bg-light.p-4 {
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.bg-light h5 {
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.bg-light ul li {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.bg-light ul li i {
+  margin-right: 0.5rem;
+}
+
+/* ========================================
+   HABITACIONES RELACIONADAS
+   ======================================== */
+.card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.card-img-top {
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.1);
+}
+
+.text-gold {
+  color: var(--gold);
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 991px) {
+  .price-box {
+    position: relative;
+    top: 0;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .room-header {
+    padding: 6rem 0 3rem;
+  }
+
+  .room-header h1 {
+    font-size: 2.5rem;
+  }
+
+  .room-gallery img {
+    height: 200px;
+  }
+
+  .feature-card {
+    margin-bottom: 1rem;
+  }
+
+  .price-box h3 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .room-header h1 {
+    font-size: 2rem;
+  }
+
+  .room-header .lead {
+    font-size: 1rem;
+  }
+
+  .room-gallery img {
+    height: 180px;
+  }
+
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .price-box {
+    padding: 1.5rem;
+  }
+
+  .price-box h3 {
+    font-size: 1.8rem;
+  }
+}
