@@ -13,7 +13,7 @@
 <body>
 
     <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand" href="index.html">
                 <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
@@ -28,7 +28,11 @@
                     <li class="nav-item"><a class="nav-link active" href="habitaciones.html">Habitaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="reservas.html">Reservas</a></li>
                     <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="bi bi-person-circle"></i> Ingresar</a></li>
+                    <li class="nav-item" id="userMenuItem">
+                        <a class="nav-link" href="login.html">
+                            <i class="bi bi-person-circle"></i> Ingresar
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -42,29 +46,13 @@
         </div>
     </section>
 
-    <!-- FILTROS -->
-    <section class="filter-section">
-        <div class="container">
-            <div class="text-center">
-                <h5 class="mb-3">Filtrar por categoría:</h5>
-                <button class="filter-btn active" data-filter="all">Todas</button>
-                <button class="filter-btn" data-filter="deluxe">Deluxe</button>
-                <button class="filter-btn" data-filter="presidencial">Presidencial</button>
-                <button class="filter-btn" data-filter="familiar">Familiar</button>
-                <button class="filter-btn" data-filter="romantica">Romántica</button>
-                <button class="filter-btn" data-filter="ejecutiva">Ejecutiva</button>
-                <button class="filter-btn" data-filter="junior">Junior</button>
-            </div>
-        </div>
-    </section>
-
     <!-- CATÁLOGO DE HABITACIONES -->
     <section class="py-5">
         <div class="container">
             <div class="row g-4">
 
                 <!-- HABITACIÓN 1: Suite Deluxe -->
-                <div class="col-lg-4 col-md-6 room-item" data-category="deluxe">
+                <div class="col-lg-4 col-md-6">
                     <div class="card room-card shadow-sm">
                         <div class="position-relative">
                             <img src="assets/img/rooms/room2.webp" class="card-img-top" alt="Suite Deluxe">
@@ -94,7 +82,7 @@
                 </div>
 
                 <!-- HABITACIÓN 2: Suite Presidencial -->
-                <div class="col-lg-4 col-md-6 room-item" data-category="presidencial">
+                <div class="col-lg-4 col-md-6">
                     <div class="card room-card shadow-sm">
                         <div class="position-relative">
                             <img src="assets/img/rooms/room3.webp" class="card-img-top" alt="Suite Presidencial">
@@ -124,7 +112,7 @@
                 </div>
 
                 <!-- HABITACIÓN 3: Suite Familiar -->
-                <div class="col-lg-4 col-md-6 room-item" data-category="familiar">
+                <div class="col-lg-4 col-md-6">
                     <div class="card room-card shadow-sm">
                         <div class="position-relative">
                             <img src="assets/img/rooms/room5.png" class="card-img-top" alt="Suite Familiar">
@@ -154,7 +142,7 @@
                 </div>
 
                 <!-- HABITACIÓN 4: Suite Junior -->
-                <div class="col-lg-4 col-md-6 room-item" data-category="junior">
+                <div class="col-lg-4 col-md-6">
                     <div class="card room-card shadow-sm">
                         <div class="position-relative">
                             <img src="assets/img/rooms/room6.png" class="card-img-top" alt="Suite Junior">
@@ -184,7 +172,7 @@
                 </div>
 
                 <!-- HABITACIÓN 5: Suite Romántica -->
-                <div class="col-lg-4 col-md-6 room-item" data-category="romantica">
+                <div class="col-lg-4 col-md-6">
                     <div class="card room-card shadow-sm">
                         <div class="position-relative">
                             <img src="assets/img/rooms/room7.png" class="card-img-top" alt="Suite Romántica">
@@ -214,7 +202,7 @@
                 </div>
 
                 <!-- HABITACIÓN 6: Suite Ejecutiva -->
-                <div class="col-lg-4 col-md-6 room-item" data-category="ejecutiva">
+                <div class="col-lg-4 col-md-6">
                     <div class="card room-card shadow-sm">
                         <div class="position-relative">
                             <img src="assets/img/rooms/room4.png" class="card-img-top" alt="Suite Ejecutiva">
@@ -298,7 +286,7 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (IGUAL AL INDEX) -->
     <footer class="footer bg-dark text-white">
         <div class="container">
             <div class="row g-4">
@@ -368,6 +356,6 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/habitaciones.js"></script>
+    <script src="js/navbar.js"></script>
 </body>
 </html>
