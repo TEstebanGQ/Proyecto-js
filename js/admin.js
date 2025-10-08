@@ -84,7 +84,7 @@ function loadDashboard() {
 }
 
 function loadRecentBookings() {
-  const bookings = getBookings().sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion)).slice(0, 5);
+  const bookings = getBookings().sort((a, b) => new Date(b.fechaReserva || b.fechaCreacion) - new Date(a.fechaReserva || a.fechaCreacion)).slice(0, 5);
   const tbody = document.querySelector('#recentBookingsTable tbody');
   tbody.innerHTML = '';
 
@@ -94,13 +94,14 @@ function loadRecentBookings() {
   }
 
   bookings.forEach(booking => {
-    const room = getRoomById(booking.habitacionId);
+    const room = getRoomById(booking.roomId || booking.habitacionId);
+    const user = getUserById(booking.userId);
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${booking.id}</td>
       <td>${room ? room.nombre : 'N/A'}</td>
-      <td>${booking.nombreCliente}</td>
-      <td>${formatDate(booking.checkIn)}</td>
+      <td>${user ? user.nombre : (booking.nombreCliente || 'N/A')}</td>
+      <td>${formatDate(booking.fechaInicio || booking.checkIn)}</td>
       <td>
         <span class="badge bg-${booking.estado === 'confirmada' ? 'success' : 'danger'}">
           ${booking.estado.charAt(0).toUpperCase() + booking.estado.slice(1)}
@@ -129,8 +130,8 @@ function loadRooms() {
       <td>${room.nombre}</td>
       <td>${room.personas}</td>
       <td>${room.camas}</td>
-      <td>${formatPrice(room.precioNoche)}</td>
-      <td>${room.servicios.join(', ')}</td>
+      <td>${formatPrice(room.precioNoche || room.precio)}</td>
+      <td>${room.servicios.slice(0, 3).join(', ')}${room.servicios.length > 3 ? '...' : ''}</td>
       <td class="table-actions">
         <button class="btn btn-sm btn-outline-primary" onclick="window.openRoomModal(${room.id})">
           <i class="bi bi-pencil"></i>
@@ -175,14 +176,15 @@ function filterBookings() {
   }
 
   filteredBookings.forEach(booking => {
-    const room = getRoomById(booking.habitacionId);
+    const room = getRoomById(booking.roomId || booking.habitacionId);
+    const user = getUserById(booking.userId);
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${booking.id}</td>
       <td>${room ? room.nombre : 'N/A'}</td>
-      <td>${booking.nombreCliente}</td>
-      <td>${formatDate(booking.checkIn)}</td>
-      <td>${formatDate(booking.checkOut)}</td>
+      <td>${user ? user.nombre : (booking.nombreCliente || 'N/A')}</td>
+      <td>${formatDate(booking.fechaInicio || booking.checkIn)}</td>
+      <td>${formatDate(booking.fechaFin || booking.checkOut)}</td>
       <td>${booking.personas}</td>
       <td>${formatPrice(booking.total)}</td>
       <td>
@@ -219,7 +221,11 @@ function loadUsers() {
       <td>${user.nombre}</td>
       <td>${user.email}</td>
       <td>${user.telefono || 'N/A'}</td>
-      <td>${user.rol.charAt(0).toUpperCase() + user.rol.slice(1)}</td>
+      <td>
+        <span class="badge bg-${user.role === 'admin' ? 'danger' : 'primary'}">
+          ${user.role === 'admin' ? 'Administrador' : 'Usuario'}
+        </span>
+      </td>
       <td>${formatDate(user.fechaRegistro)}</td>
       <td class="table-actions">
         <button class="btn btn-sm btn-outline-primary" onclick="window.viewUser(${user.id})">
@@ -254,8 +260,7 @@ window.openRoomModal = function(id = null) {
       document.getElementById('roomDescription').value = room.descripcion;
       document.getElementById('roomBeds').value = room.camas;
       document.getElementById('roomPersons').value = room.personas;
-      document.getElementById('roomPrice').value = room.precioNoche;
-
+      document.getElementById('roomPrice').value = room.precioNoche || room.precio;
 
       const servicesContainer = document.getElementById('servicesContainer');
       servicesContainer.innerHTML = '';
@@ -325,7 +330,16 @@ document.getElementById('roomForm').addEventListener('submit', (e) => {
     return;
   }
   
-  const roomData = { nombre, imagen, descripcion, camas, personas, precioNoche, servicios };
+  const roomData = { 
+    nombre, 
+    imagen, 
+    descripcion, 
+    camas, 
+    personas, 
+    precioNoche, 
+    precio: precioNoche, // Mantener ambas propiedades por compatibilidad
+    servicios 
+  };
   
   if (id) {
     updateRoom(parseInt(id), roomData);
@@ -361,13 +375,24 @@ window.cancelBooking = function(id) {
 window.viewUser = function(id) {
   const user = getUserById(id);
   if (user) {
+    const bookingsCount = getBookings().filter(b => b.userId === user.id).length;
+    const activeBookingsCount = getBookings().filter(b => b.userId === user.id && b.estado === 'confirmada').length;
+    
     alert(`
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+    INFORMACIÓN DEL USUARIO
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 ID: ${user.id}
 Nombre: ${user.nombre}
 Email: ${user.email}
 Teléfono: ${user.telefono || 'N/A'}
-Rol: ${user.rol.charAt(0).toUpperCase() + user.rol.slice(1)}
-Fecha Registro: ${formatDate(user.fechaRegistro)}
+Identificación: ${user.identificacion || 'N/A'}
+Nacionalidad: ${user.nacionalidad || 'N/A'}
+Rol: ${user.role === 'admin' ? 'Administrador' : 'Usuario'}
+Fecha de Registro: ${formatDate(user.fechaRegistro)}
+Total de Reservas: ${bookingsCount}
+Reservas Activas: ${activeBookingsCount}
     `);
   } else {
     alert('Usuario no encontrado.');
