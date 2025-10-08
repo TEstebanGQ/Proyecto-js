@@ -1,11 +1,373 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Suite Presidencial - Hotel El Rincón del Carmen</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/navbar-logo.css">
+  <link rel="stylesheet" href="../css/habitacion-detalle.css">
 </head>
 <body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <img src="../assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
+        <span class="brand-text">EL RINCÓN DEL CARMEN</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="../reservas.html">Reservas</a></li>
+          <li class="nav-item"><a class="nav-link" href="../contacto.html">Contacto</a></li>
+          <li class="nav-item"><a class="nav-link" href="../login.html"><i class="bi bi-person-circle"></i> Ingresar</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section class="room-header">
+    <div class="container">
+      <h1 class="display-4 mb-3">Suite Presidencial</h1>
+      <p class="lead">La máxima expresión de elegancia y lujo</p>
+      <div class="d-flex gap-3 flex-wrap">
+        <span class="badge bg-light text-dark"><i class="bi bi-people"></i> 6 Personas</span>
+        <span class="badge bg-light text-dark"><i class="bi bi-door-closed"></i> 3 Camas</span>
+        <span class="badge bg-light text-dark"><i class="bi bi-rulers"></i> 120 m²</span>
+        <span class="badge bg-light text-dark"><i class="bi bi-eye"></i> Terraza Privada</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        
+        <!-- COLUMNA IZQUIERDA: DESCRIPCIÓN Y DETALLES -->
+        <div class="col-lg-8">
+          
+          <!-- DESCRIPCIÓN -->
+          <div class="mb-5">
+            <h2 class="mb-4">Descripción de la Habitación</h2>
+            <p class="lead text-muted">
+              La Suite Presidencial es nuestra joya de la corona, diseñada para los huéspedes más 
+              exigentes que buscan una experiencia incomparable. Con dos habitaciones independientes, 
+              jacuzzi de hidromasaje, terraza privada con vista panorámica y servicio de mayordomo 
+              personalizado las 24 horas.
+            </p>
+            <p class="text-muted">
+              Disfrute de espacios amplios y lujosos, decoración exclusiva con materiales premium, 
+              tecnología de vanguardia y todas las comodidades imaginables. Esta suite es perfecta 
+              para ocasiones especiales, viajes ejecutivos de alto nivel o para quienes simplemente 
+              desean lo mejor.
+            </p>
+          </div>
+
+          <!-- GALERÍA -->
+          <div class="mb-5">
+            <h2 class="mb-4">Galería de Imágenes</h2>
+            <div class="row g-3 room-gallery">
+              <div class="col-md-6">
+                <img src="../assets/img/rooms/room3.webp" alt="Suite Presidencial 1">
+              </div>
+              <div class="col-md-6">
+                <img src="../assets/img/rooms/room2.webp" alt="Suite Presidencial 2">
+              </div>
+              <div class="col-md-6">
+                <img src="../assets/img/rooms/room1.png" alt="Suite Presidencial 3">
+              </div>
+              <div class="col-md-6">
+                <img src="../assets/img/rooms/room4.png" alt="Suite Presidencial 4">
+              </div>
+            </div>
+          </div>
+
+          <!-- CARACTERÍSTICAS -->
+          <div class="mb-5">
+            <h2 class="mb-4">Características Principales</h2>
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="feature-card text-center">
+                  <div class="feature-icon">
+                    <i class="bi bi-building"></i>
+                  </div>
+                  <h5>Dos Habitaciones</h5>
+                  <p class="text-muted small">120 m² de lujo absoluto</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card text-center">
+                  <div class="feature-icon">
+                    <i class="bi bi-droplet-fill"></i>
+                  </div>
+                  <h5>Jacuzzi Privado</h5>
+                  <p class="text-muted small">Hidromasaje de lujo</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card text-center">
+                  <div class="feature-icon">
+                    <i class="bi bi-tree"></i>
+                  </div>
+                  <h5>Terraza Privada</h5>
+                  <p class="text-muted small">Vista panorámica 360°</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card text-center">
+                  <div class="feature-icon">
+                    <i class="bi bi-person-badge"></i>
+                  </div>
+                  <h5>Mayordomo 24/7</h5>
+                  <p class="text-muted small">Servicio personalizado</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card text-center">
+                  <div class="feature-icon">
+                    <i class="bi bi-tv"></i>
+                  </div>
+                  <h5>Smart TV 65"</h5>
+                  <p class="text-muted small">Sistema de cine en casa</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card text-center">
+                  <div class="feature-icon">
+                    <i class="bi bi-wifi"></i>
+                  </div>
+                  <h5>WiFi Premium</h5>
+                  <p class="text-muted small">Fibra óptica dedicada</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AMENIDADES -->
+          <div class="mb-5">
+            <h2 class="mb-4">Amenidades Premium Incluidas</h2>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="amenity-item">
+                  <i class="bi bi-wifi"></i>
+                  <span>WiFi de alta velocidad</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-droplet-fill"></i>
+                  <span>Jacuzzi de hidromasaje</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-tree"></i>
+                  <span>Terraza privada con mobiliario</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-person-badge"></i>
+                  <span>Servicio de mayordomo 24/7</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-cup-hot"></i>
+                  <span>Minibar premium renovado diariamente</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="amenity-item">
+                  <i class="bi bi-tv"></i>
+                  <span>Smart TV 65" con Netflix y más</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-safe"></i>
+                  <span>Caja fuerte digital</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-snow"></i>
+                  <span>Climatización inteligente</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-soundwave"></i>
+                  <span>Sistema de audio Bose</span>
+                </div>
+                <div class="amenity-item">
+                  <i class="bi bi-gem"></i>
+                  <span>Amenidades de baño de lujo</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA: PRECIO Y RESERVA -->
+        <div class="col-lg-4">
+          <div class="price-box">
+            <h3>$580.000</h3>
+            <p class="mb-4">Por noche</p>
+            <div class="text-start mb-4">
+              <p class="mb-2"><i class="bi bi-check-circle"></i> Desayuno gourmet incluido</p>
+              <p class="mb-2"><i class="bi bi-check-circle"></i> Mayordomo personal</p>
+              <p class="mb-2"><i class="bi bi-check-circle"></i> Traslado aeropuerto</p>
+              <p class="mb-2"><i class="bi bi-check-circle"></i> Minibar premium ilimitado</p>
+              <p class="mb-2"><i class="bi bi-check-circle"></i> Acceso VIP a todas las áreas</p>
+            </div>
+            <a href="../reservas.html" class="btn btn-reservar w-100 mb-3">
+              <i class="bi bi-calendar-check"></i> Reservar Ahora
+            </a>
+            <a href="../contacto.html" class="btn btn-outline-light w-100">
+              <i class="bi bi-chat-dots"></i> Consultar
+            </a>
+          </div>
+
+          <!-- INFORMACIÓN ADICIONAL -->
+          <div class="mt-4 bg-light p-4 rounded">
+            <h5 class="mb-3">Políticas de la Suite</h5>
+            <ul class="list-unstyled small">
+              <li class="mb-2"><i class="bi bi-clock text-success"></i> Check-in: 2:00 PM</li>
+              <li class="mb-2"><i class="bi bi-clock text-danger"></i> Check-out: 1:00 PM</li>
+              <li class="mb-2"><i class="bi bi-x-circle text-danger"></i> No se permiten mascotas</li>
+              <li class="mb-2"><i class="bi bi-ban text-danger"></i> Habitación para no fumadores</li>
+              <li class="mb-2"><i class="bi bi-people text-primary"></i> Máximo 6 personas</li>
+              <li class="mb-2"><i class="bi bi-door-closed text-info"></i> 3 camas queen/king</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- HABITACIONES RELACIONADAS -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <h2 class="text-center mb-5">Otras Habitaciones Disponibles</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <img src="../assets/img/rooms/room2.webp" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Suite Deluxe">
+            <div class="card-body">
+              <h5 class="card-title">Suite Deluxe</h5>
+              <p class="card-text text-muted small">Lujo y comodidad en cada detalle</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-gold fw-bold">$320.000/noche</span>
+                <a href="habitacion1.html" class="btn btn-sm btn-outline-dark">Ver más</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <img src="../assets/img/rooms/room5.png" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Suite Familiar">
+            <div class="card-body">
+              <h5 class="card-title">Suite Familiar</h5>
+              <p class="card-text text-muted small">Espacio ideal para toda la familia</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-gold fw-bold">$420.000/noche</span>
+                <a href="habitacion3.html" class="btn btn-sm btn-outline-dark">Ver más</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 shadow-sm">
+            <img src="../assets/img/rooms/room7.png" class="card-img-top" style="height: 200px; object-fit: cover;" alt="Suite Romántica">
+            <div class="card-body">
+              <h5 class="card-title">Suite Romántica</h5>
+              <p class="card-text text-muted small">Escapada perfecta para parejas</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="text-gold fw-bold">$350.000/noche</span>
+                <a href="habitacion4.html" class="btn btn-sm btn-outline-dark">Ver más</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER CORREGIDO -->
+<footer class="footer bg-dark text-white">
+  <div class="container">
+    <div class="row g-4">
+      
+      <!-- Columna 1: Sobre el Hotel -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">El Rincón del Carmen</h5>
+        <p>
+          Tu refugio de lujo en el corazón de Bogotá. 
+          Experiencias inolvidables desde 2020.
+        </p>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">Enlaces Rápidos</h5>
+        <ul class="list-unstyled">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="../habitaciones.html">Habitaciones</a></li>
+          <li><a href="../reservas.html">Reservas</a></li>
+          <li><a href="../contacto.html">Contacto</a></li>
+          <li><a href="../login.html">Iniciar Sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">Contacto</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="bi bi-geo-alt text-gold"></i> 
+            Calle 93 #11-74, Bogotá D.C.
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-phone text-gold"></i> 
+            +57 320 123 4567
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-envelope text-gold"></i> 
+            info@rincondelcarmen.com
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-clock text-gold"></i> 
+            Atención 24/7
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Horarios -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">Horarios</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="bi bi-reception-4 text-gold"></i> 
+            <strong>Recepción:</strong> 24 horas
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-headset text-gold"></i> 
+            <strong>Soporte:</strong> Siempre disponible
+          </li>
+        </ul>
+      </div>
+
+    </div>
     
+    <!-- Copyright -->
+    <div class="row">
+      <div class="col-12">
+        <p class="text-center mb-0">
+          © 2025 Hotel El Rincón del Carmen. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
