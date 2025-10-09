@@ -1,7 +1,3 @@
-// ========================================
-// SCRIPT REGISTRO - CORREGIDO
-// ========================================
-
 import { addUser, isAuthenticated, login } from './storage.js';
 
 // Redirigir si ya está autenticado
@@ -25,7 +21,7 @@ function showAlert(message, type = 'danger') {
   
   setTimeout(() => {
     if (type === 'success') {
-      window.location.href = 'index.html'; // Redirigir al inicio en lugar de login
+      window.location.href = 'index.html';
     }
   }, 2000);
 }
@@ -37,10 +33,8 @@ form.addEventListener('submit', (e) => {
   const nombre = document.getElementById('nombre').value.trim();
   const email = document.getElementById('email').value.trim();
   const telefono = document.getElementById('telefono').value.trim();
-  const nacionalidad = document.getElementById('nacionalidad').value;
+  const nacionalidad = document.getElementById('nacionalidad').value.trim();
   const password = document.getElementById('password').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-  const terms = document.getElementById('terms').checked;
   
   // Validaciones
   if (!identificacion || !nombre || !email || !telefono || !nacionalidad || !password) {
@@ -50,16 +44,6 @@ form.addEventListener('submit', (e) => {
   
   if (password.length < 6) {
     showAlert('La contraseña debe tener al menos 6 caracteres');
-    return;
-  }
-  
-  if (password !== confirmPassword) {
-    showAlert('Las contraseñas no coinciden');
-    return;
-  }
-  
-  if (!terms) {
-    showAlert('Debes aceptar los términos y condiciones');
     return;
   }
   
@@ -83,7 +67,7 @@ form.addEventListener('submit', (e) => {
   if (result.error) {
     showAlert(result.error);
   } else {
-    // ✅ INICIAR SESIÓN AUTOMÁTICAMENTE DESPUÉS DEL REGISTRO
+    // Iniciar sesión automáticamente después del registro
     const loginResult = login(email, password);
     
     if (loginResult.success) {
@@ -94,7 +78,6 @@ form.addEventListener('submit', (e) => {
       
       showAlert('¡Cuenta creada exitosamente! Bienvenido...', 'success');
     } else {
-      // Si falla el auto-login, redirigir a login manual
       showAlert('¡Cuenta creada exitosamente! Redirigiendo al login...', 'success');
       setTimeout(() => {
         window.location.href = 'login.html';

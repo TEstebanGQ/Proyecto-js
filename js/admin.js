@@ -53,10 +53,8 @@ document.querySelectorAll('.menu-link').forEach(link => {
     document.getElementById(`${section}-section`).style.display = 'block';
     
     // Cargar datos
-    if (section === 'dashboard') loadDashboard();
-    else if (section === 'rooms') loadRooms();
+    if (section === 'rooms') loadRooms();
     else if (section === 'bookings') loadBookings();
-    else if (section === 'users') loadUsers();
     
     // Ocultar sidebar en móvil
     document.getElementById('adminSidebar').classList.remove('show');
@@ -70,49 +68,10 @@ document.getElementById('logoutBtn').addEventListener('click', (e) => {
   window.location.href = 'login.html';
 });
 
-// Cargar dashboard inicialmente
-loadDashboard();
+// Cargar habitaciones inicialmente
+loadRooms();
 
 // Funciones de carga de datos
-function loadDashboard() {
-  const stats = getStatistics();
-  document.getElementById('totalRooms').textContent = stats.totalRooms;
-  document.getElementById('activeBookings').textContent = stats.activeBookings;
-  document.getElementById('totalUsers').textContent = stats.totalUsers;
-  document.getElementById('totalRevenue').textContent = formatPrice(stats.totalRevenue);
-  loadRecentBookings();
-}
-
-function loadRecentBookings() {
-  const bookings = getBookings().sort((a, b) => new Date(b.fechaReserva || b.fechaCreacion) - new Date(a.fechaReserva || a.fechaCreacion)).slice(0, 5);
-  const tbody = document.querySelector('#recentBookingsTable tbody');
-  tbody.innerHTML = '';
-
-  if (bookings.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No hay reservas recientes</td></tr>';
-    return;
-  }
-
-  bookings.forEach(booking => {
-    const room = getRoomById(booking.roomId || booking.habitacionId);
-    const user = getUserById(booking.userId);
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${booking.id}</td>
-      <td>${room ? room.nombre : 'N/A'}</td>
-      <td>${user ? user.nombre : (booking.nombreCliente || 'N/A')}</td>
-      <td>${formatDate(booking.fechaInicio || booking.checkIn)}</td>
-      <td>
-        <span class="badge bg-${booking.estado === 'confirmada' ? 'success' : 'danger'}">
-          ${booking.estado.charAt(0).toUpperCase() + booking.estado.slice(1)}
-        </span>
-      </td>
-      <td>${formatPrice(booking.total)}</td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
 function loadRooms() {
   const rooms = getRooms();
   const tbody = document.querySelector('#roomsTable tbody');
@@ -198,39 +157,6 @@ function filterBookings() {
             <i class="bi bi-x-circle"></i> Cancelar
           </button>
         ` : ''}
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-function loadUsers() {
-  const users = getUsers();
-  const tbody = document.querySelector('#usersTable tbody');
-  tbody.innerHTML = '';
-
-  if (users.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted">No hay usuarios</td></tr>';
-    return;
-  }
-
-  users.forEach(user => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${user.id}</td>
-      <td>${user.nombre}</td>
-      <td>${user.email}</td>
-      <td>${user.telefono || 'N/A'}</td>
-      <td>
-        <span class="badge bg-${user.role === 'admin' ? 'danger' : 'primary'}">
-          ${user.role === 'admin' ? 'Administrador' : 'Usuario'}
-        </span>
-      </td>
-      <td>${formatDate(user.fechaRegistro)}</td>
-      <td class="table-actions">
-        <button class="btn btn-sm btn-outline-primary" onclick="window.viewUser(${user.id})">
-          <i class="bi bi-eye"></i>
-        </button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -351,7 +277,6 @@ document.getElementById('roomForm').addEventListener('submit', (e) => {
   
   roomModal.hide();
   loadRooms();
-  loadDashboard();
 });
 
 window.deleteRoomById = function(id) {
@@ -359,7 +284,6 @@ window.deleteRoomById = function(id) {
     deleteRoom(id);
     alert('Habitación eliminada correctamente.');
     loadRooms();
-    loadDashboard();
   }
 };
 
@@ -368,7 +292,6 @@ window.cancelBooking = function(id) {
     cancelBookingStorage(id);
     alert('Reserva cancelada correctamente.');
     loadBookings();
-    loadDashboard();
   }
 };
 
@@ -379,9 +302,7 @@ window.viewUser = function(id) {
     const activeBookingsCount = getBookings().filter(b => b.userId === user.id && b.estado === 'confirmada').length;
     
     alert(`
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    INFORMACIÓN DEL USUARIO
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
 
 ID: ${user.id}
 Nombre: ${user.nombre}

@@ -42,20 +42,9 @@ if (profileNameEl) profileNameEl.textContent = user.nombre;
 if (profileEmailEl) profileEmailEl.textContent = user.email;
 
 // ========================================
-// CERRAR SESIÓN
+// CERRAR SESIÓN ELIMINADO DE AQUÍ
+// El navbar-user.js ya maneja el cerrar sesión
 // ========================================
-const logoutBtn = document.getElementById('logoutBtn');
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
-      localStorage.removeItem('hotel_current_user');
-      localStorage.removeItem('currentUser');
-      localStorage.removeItem('isLoggedIn');
-      window.location.href = 'index.html';
-    }
-  });
-}
 
 // ========================================
 // CARGAR RESERVAS
@@ -328,7 +317,7 @@ function showAlert(message, type) {
 }
 
 // ========================================
-// FILTROS DE RESERVAS
+// FILTROS DE RESERVAS (OPCIONALES - NO IMPLEMENTADOS)
 // ========================================
 const filterAll = document.getElementById('filterAll');
 const filterActive = document.getElementById('filterActive');
