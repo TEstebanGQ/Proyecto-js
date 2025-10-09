@@ -164,12 +164,26 @@ function initSmoothScroll() {
   });
 }
 
+// Inicializar menú móvil (CORREGIDO - con validaciones)
+function initMobileMenu() {
+  const toggle = document.getElementById('menuToggle');
+  const navMenu = document.getElementById('navMenu');
+  
+  // Solo agregar listener si ambos elementos existen
+  if (toggle && navMenu) {
+    toggle.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+    });
+  }
+}
+
 // Inicializar todo cuando el DOM esté listo
 document.addEventListener('DOMContentLoaded', function() {
   checkAuth();
   setActiveNavLink();
   initNavbarScroll();
   initSmoothScroll();
+  initMobileMenu(); // Ahora con validación
 });
 
 // Exportar funciones para uso en otros scripts
@@ -180,9 +194,3 @@ if (typeof window !== 'undefined') {
     setActiveNavLink
   };
 }
-const toggle = document.getElementById('menuToggle');
-const navMenu = document.getElementById('navMenu');
-
-toggle.addEventListener('click', () => {
-  navMenu.classList.toggle('active');
-});
