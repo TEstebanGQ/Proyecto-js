@@ -291,12 +291,6 @@ Los usuarios pueden registrarse libremente desde:
 
 #### Funciones Disponibles
 
-**📊 Dashboard**
-- Estadísticas en tiempo real
-- Total de habitaciones, reservas y usuarios
-- Tasa de ocupación
-- Ingresos totales
-
 **🏨 Gestión de Habitaciones**
 - Ver todas las habitaciones en tabla
 - Crear nueva habitación
@@ -310,10 +304,6 @@ Los usuarios pueden registrarse libremente desde:
 - Ver detalles completos de cada reserva
 - Cancelar reservas si es necesario
 
-**👥 Administración de Usuarios**
-- Listado completo de usuarios registrados
-- Ver información detallada de cada usuario
-- Consultar estadísticas de reservas por usuario
 
 ---
 
