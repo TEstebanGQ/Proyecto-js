@@ -12,8 +12,9 @@
   <link rel="stylesheet" href="css/reservas.css">
 </head>
 <body>
-    <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+
+<!-- NAVBAR UNIFICADO - Reemplazar en TODAS las páginas -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">
       <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
@@ -24,15 +25,68 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="habitaciones.html">Habitaciones</a></li>
-        <li class="nav-item"><a class="nav-link active" href="reservas.html">Reservas</a></li>
-        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        
+        <!-- INICIO -->
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Inicio</a>
+        </li>
+        
+        <!-- HABITACIONES CON DROPDOWN -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="habitacionesDropdown" role="button">
+            Habitaciones
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="habitacionesDropdown">
+            <li>
+              <a class="dropdown-item" href="html/habitacion1.html">
+                Suite Deluxe
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion2.html">
+                Suite Presidencial
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion3.html">
+                Suite Familiar
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion4.html">
+                Suite Junior
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion5.html">
+                Suite Romántica
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion6.html">
+                Suite Ejecutiva
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- RESERVAS -->
+        <li class="nav-item">
+          <a class="nav-link" href="reservas.html">Reservas</a>
+        </li>
+        
+        <!-- CONTACTO -->
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.html">Contacto</a>
+        </li>
+        
+        <!-- USUARIO -->
         <li class="nav-item" id="userMenuItem">
           <a class="nav-link" href="login.html">
             <i class="bi bi-person-circle"></i> Ingresar
           </a>
         </li>
+        
       </ul>
     </div>
   </div>
@@ -149,8 +203,6 @@
         <h5 class="text-gold mb-3">Enlaces Rápidos</h5>
         <ul class="list-unstyled">
           <li><a href="index.html">Inicio</a></li>
-          <li><a href="index.html#habitaciones">Habitaciones</a></li>
-          <li><a href="index.html#servicios">Servicios</a></li>
           <li><a href="reservas.html">Reservas</a></li>
           <li><a href="contacto.html">Contacto</a></li>
           <li><a href="login.html">Iniciar Sesión</a></li>
@@ -212,6 +264,7 @@
   <script type="module" src="js/reservas.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/navbar.js"></script>
+  <script src="js/navbar-user.js"></script>
   <script>
     // Navbar transparente con efecto scroll
     window.addEventListener('scroll', function() {

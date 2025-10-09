@@ -13,32 +13,84 @@
 </head>
 <body>
   
-  <!-- NAVBAR - IGUAL QUE INDEX -->
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-    <div class="container">
-      <a class="navbar-brand" href="index.html">
-        <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
-        <span class="brand-text">EL RINCÓN DEL CARMEN</span>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<!-- NAVBAR UNIFICADO - Reemplazar en TODAS las páginas -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
+      <span class="brand-text">EL RINCÓN DEL CARMEN</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-        <li class="nav-item"><a class="nav-link" href="habitaciones.html">Habitaciones</a></li>
-        <li class="nav-item"><a class="nav-link active" href="reservas.html">Reservas</a></li>
-        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+        
+        <!-- INICIO -->
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Inicio</a>
+        </li>
+        
+        <!-- HABITACIONES CON DROPDOWN -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="habitacionesDropdown" role="button">
+            Habitaciones
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="habitacionesDropdown">
+            <li>
+              <a class="dropdown-item" href="html/habitacion1.html">
+                Suite Deluxe
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion2.html">
+                Suite Presidencial
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion3.html">
+                Suite Familiar
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion4.html">
+                Suite Junior
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion5.html">
+                Suite Romántica
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion6.html">
+                Suite Ejecutiva
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- RESERVAS -->
+        <li class="nav-item">
+          <a class="nav-link" href="reservas.html">Reservas</a>
+        </li>
+        
+        <!-- CONTACTO -->
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.html">Contacto</a>
+        </li>
+        
+        <!-- USUARIO -->
         <li class="nav-item" id="userMenuItem">
           <a class="nav-link" href="login.html">
             <i class="bi bi-person-circle"></i> Ingresar
           </a>
         </li>
+        
       </ul>
     </div>
-    </div>
-  </nav>
-  
+  </div>
+</nav>
   <!-- HEADER -->
   <header class="contact-header">
     <div class="container text-center">
@@ -154,12 +206,6 @@
                 <textarea class="form-control" id="mensaje" rows="5" placeholder="Escribe tu mensaje aquí..." required></textarea>
               </div>
               
-              <div class="mb-3 form-check">
-                <input type="checkbox" class="form-check-input" id="politicas" required>
-                <label class="form-check-label" for="politicas">
-                  Acepto la política de privacidad y tratamiento de datos
-                </label>
-              </div>
               
               <button type="submit" class="btn btn-gold w-100">
                 <i class="bi bi-send"></i> Enviar Mensaje
@@ -267,8 +313,6 @@
         <h5 class="text-gold mb-3">Enlaces Rápidos</h5>
         <ul class="list-unstyled">
           <li><a href="index.html">Inicio</a></li>
-          <li><a href="index.html#habitaciones">Habitaciones</a></li>
-          <li><a href="index.html#servicios">Servicios</a></li>
           <li><a href="reservas.html">Reservas</a></li>
           <li><a href="contacto.html">Contacto</a></li>
           <li><a href="login.html">Iniciar Sesión</a></li>
@@ -327,74 +371,7 @@
 </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/navbar.js"></script>
-  <script>
-    // Navbar con efecto scroll - igual que index.html
-    const nav = document.getElementById('mainNav');
-    
-    // Aplicar fondo oscuro inmediatamente ya que no tenemos hero fullscreen
-    nav.classList.add('navbar-scrolled');
-    
-    window.addEventListener('scroll', function() {
-      if (window.scrollY > 50) {
-        nav.classList.add('navbar-scrolled');
-      } else {
-        // En esta página mantener el fondo siempre
-        nav.classList.add('navbar-scrolled');
-      }
-    });
-    
-    // Formulario de contacto
-    const contactForm = document.getElementById('contactForm');
-    const alertContainer = document.getElementById('alertContainer');
-    
-    function showAlert(message, type = 'success') {
-      alertContainer.innerHTML = `
-        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
-          <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
-          ${message}
-          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        </div>
-      `;
-      
-      setTimeout(() => {
-        alertContainer.innerHTML = '';
-      }, 5000);
-    }
-    
-    contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const nombre = document.getElementById('nombre').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const telefono = document.getElementById('telefono').value.trim();
-      const asunto = document.getElementById('asunto').value;
-      const mensaje = document.getElementById('mensaje').value.trim();
-      const politicas = document.getElementById('politicas').checked;
-      
-      if (!nombre || !email || !asunto || !mensaje) {
-        showAlert('Por favor completa todos los campos obligatorios', 'warning');
-        return;
-      }
-      
-      if (!politicas) {
-        showAlert('Debes aceptar la política de privacidad', 'warning');
-        return;
-      }
-      
-      // Simular envío
-      showAlert('¡Mensaje enviado exitosamente! Te responderemos pronto.', 'success');
-      contactForm.reset();
-      
-      // Aquí irían las llamadas a la API para enviar el email
-      console.log('Datos del formulario:', {
-        nombre,
-        email,
-        telefono,
-        asunto,
-        mensaje
-      });
-    });
-    
-  </script>
+  <script src="js/navbar-user.js"></script>
+  <script src="js/contacto.js"></script>
 </body>
 </html>

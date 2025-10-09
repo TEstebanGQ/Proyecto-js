@@ -810,3 +810,86 @@ footer.footer {
     font-size: 0.85rem;
   }
 }
+/* ========================================
+   NAVBAR DROPDOWN - Habitaciones (HOVER)
+   Agregar al final de css/styles.css
+   ======================================== */
+
+/* Dropdown personalizado */
+.navbar-nav .dropdown-menu {
+  background: rgba(26, 26, 26, 0.98);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 10px;
+  padding: 0.5rem 0;
+  margin-top: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  min-width: 220px;
+  display: none;
+  position: absolute;
+}
+
+/* Mantener el dropdown visible mientras el mouse está sobre el li.dropdown completo */
+.navbar-nav .dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.navbar-nav .dropdown-item {
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+}
+
+.navbar-nav .dropdown-item:hover {
+  background: rgba(212, 175, 55, 0.15);
+  color: var(--gold);
+  padding-left: 1.8rem;
+}
+
+.navbar-nav .dropdown-item:active {
+  background: rgba(212, 175, 55, 0.25);
+}
+
+/* Flecha del dropdown */
+.navbar-nav .dropdown-toggle::after {
+  margin-left: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+/* Hover en el botón de habitaciones */
+.navbar-nav .dropdown:hover .dropdown-toggle {
+  color: var(--gold) !important;
+}
+
+.navbar-nav .dropdown:hover .dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+/* Responsive - Mobile */
+@media (max-width: 991px) {
+  /* En mobile mantener el comportamiento de clic */
+  .navbar-nav .dropdown:hover > .dropdown-menu {
+    display: none;
+  }
+  
+  .navbar-nav .dropdown-menu.show {
+    display: block;
+  }
+  
+  .navbar-nav .dropdown-menu {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding-left: 1rem;
+    margin-top: 0;
+    position: static;
+  }
+  
+  .navbar-nav .dropdown-item {
+    padding: 0.6rem 1rem;
+  }
+  
+  .navbar-nav .dropdown-item:hover {
+    padding-left: 1.3rem;
+  }
+}

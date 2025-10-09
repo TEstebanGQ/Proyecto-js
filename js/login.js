@@ -1,5 +1,5 @@
 // ========================================
-// SCRIPT LOGIN
+// SCRIPT LOGIN - CORREGIDO
 // ========================================
 
 import { login, isAuthenticated, isAdmin } from './storage.js';
@@ -44,6 +44,11 @@ form.addEventListener('submit', async (e) => {
   const result = login(email, password);
   
   if (result.success) {
+    localStorage.setItem('userEmail', result.user.email);
+    localStorage.setItem('userName', result.user.nombre || result.user.name || 'Usuario');
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userId', result.user.id);
+    
     showAlert('Inicio de sesión exitoso. Redirigiendo...', 'success');
     
     setTimeout(() => {

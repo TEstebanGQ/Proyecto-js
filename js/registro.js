@@ -1,8 +1,8 @@
 // ========================================
-// SCRIPT REGISTRO
+// SCRIPT REGISTRO - CORREGIDO
 // ========================================
 
-import { addUser, isAuthenticated } from './storage.js';
+import { addUser, isAuthenticated, login } from './storage.js';
 
 // Redirigir si ya está autenticado
 if (isAuthenticated()) {
@@ -25,39 +25,10 @@ function showAlert(message, type = 'danger') {
   
   setTimeout(() => {
     if (type === 'success') {
-      window.location.href = 'login.html';
+      window.location.href = 'index.html'; // Redirigir al inicio en lugar de login
     }
   }, 2000);
 }
-
-// Indicador de fortaleza de contraseña
-passwordInput.addEventListener('input', (e) => {
-  const password = e.target.value;
-  let strength = 0;
-  
-  if (password.length >= 6) strength++;
-  if (password.length >= 10) strength++;
-  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-  if (/\d/.test(password)) strength++;
-  if (/[^a-zA-Z\d]/.test(password)) strength++;
-  
-  const colors = ['#dc3545', '#ffc107', '#28a745'];
-  const widths = ['33%', '66%', '100%'];
-  
-  if (strength === 0) {
-    passwordStrength.style.width = '0';
-    passwordStrength.style.backgroundColor = '';
-  } else if (strength <= 2) {
-    passwordStrength.style.width = widths[0];
-    passwordStrength.style.backgroundColor = colors[0];
-  } else if (strength <= 3) {
-    passwordStrength.style.width = widths[1];
-    passwordStrength.style.backgroundColor = colors[1];
-  } else {
-    passwordStrength.style.width = widths[2];
-    passwordStrength.style.backgroundColor = colors[2];
-  }
-});
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -112,6 +83,22 @@ form.addEventListener('submit', (e) => {
   if (result.error) {
     showAlert(result.error);
   } else {
-    showAlert('¡Cuenta creada exitosamente! Redirigiendo al login...', 'success');
+    // ✅ INICIAR SESIÓN AUTOMÁTICAMENTE DESPUÉS DEL REGISTRO
+    const loginResult = login(email, password);
+    
+    if (loginResult.success) {
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userName', nombre);
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('userId', loginResult.user.id);
+      
+      showAlert('¡Cuenta creada exitosamente! Bienvenido...', 'success');
+    } else {
+      // Si falla el auto-login, redirigir a login manual
+      showAlert('¡Cuenta creada exitosamente! Redirigiendo al login...', 'success');
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 2000);
+    }
   }
 });
