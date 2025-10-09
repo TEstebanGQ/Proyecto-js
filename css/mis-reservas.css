@@ -84,12 +84,10 @@
 .status-confirmada {
   background: #d4edda;
   color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
-.status-cancelada {
-  background: #f8d7da;
-  color: #721c24;
-}
+/* Eliminado completamente .status-cancelada */
 
 .booking-body {
   padding: 1.5rem;
@@ -131,6 +129,12 @@
   text-align: center;
   box-shadow: 0 3px 10px rgba(0,0,0,0.1);
   height: 100%;
+  transition: all 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
 
 .stats-number {
@@ -144,6 +148,7 @@
   font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1px;
+  margin-top: 0.5rem;
 }
 
 .service-badge {
@@ -154,6 +159,16 @@
   font-size: 0.85rem;
   margin: 0.2rem;
   color: #495057;
+  border: 1px solid #e9ecef;
+}
+
+/* Badges de estado */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
@@ -169,5 +184,9 @@
   
   .booking-image {
     height: 150px;
+  }
+  
+  .stats-number {
+    font-size: 2rem;
   }
 }

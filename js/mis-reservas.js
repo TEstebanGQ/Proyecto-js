@@ -1,5 +1,5 @@
 // ========================================
-// SCRIPT MIS RESERVAS
+// SCRIPT MIS RESERVAS - SOLO VISUALIZACIÓN
 // ========================================
 
 import {
@@ -7,44 +7,71 @@ import {
   getCurrentUser,
   getUserBookings,
   getRoomById,
-  cancelBooking,
-  logout,
   formatPrice,
   formatDate
 } from './storage.js';
 
-// Verificar autenticación
+// ========================================
+// VERIFICACIÓN DE AUTENTICACIÓN
+// ========================================
 if (!isAuthenticated()) {
   alert('Debes iniciar sesión para ver tus reservas');
   window.location.href = 'login.html';
 }
 
 const user = getCurrentUser();
+if (!user) {
+  alert('Error al cargar los datos del usuario');
+  window.location.href = 'login.html';
+}
+
+// ========================================
+// ELEMENTOS DEL DOM
+// ========================================
 const bookingsContainer = document.getElementById('bookingsContainer');
-const detailsModal = new bootstrap.Modal(document.getElementById('detailsModal'));
+const detailsModalEl = document.getElementById('detailsModal');
+const detailsModal = detailsModalEl ? new bootstrap.Modal(detailsModalEl) : null;
 
 // Actualizar información del perfil
-document.getElementById('userName').textContent = user.nombre.split(' ')[0];
-document.getElementById('profileName').textContent = user.nombre;
-document.getElementById('profileEmail').textContent = user.email;
+const userNameEl = document.getElementById('userName');
+const profileNameEl = document.getElementById('profileName');
+const profileEmailEl = document.getElementById('profileEmail');
 
-// Cerrar sesión
-document.getElementById('logoutBtn').addEventListener('click', (e) => {
-  e.preventDefault();
-  if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
-    logout();
-    window.location.href = 'index.html';
-  }
-});
+if (userNameEl) userNameEl.textContent = user.nombre.split(' ')[0];
+if (profileNameEl) profileNameEl.textContent = user.nombre;
+if (profileEmailEl) profileEmailEl.textContent = user.email;
 
-// Cargar reservas
+// ========================================
+// CERRAR SESIÓN
+// ========================================
+const logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+      localStorage.removeItem('hotel_current_user');
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = 'index.html';
+    }
+  });
+}
+
+// ========================================
+// CARGAR RESERVAS
+// ========================================
 let allBookings = [];
-let currentFilter = 'all';
 
 function loadBookings() {
-  allBookings = getUserBookings(user.id);
-  updateStats();
-  renderBookings();
+  try {
+    allBookings = getUserBookings(user.id);
+    console.log('Reservas cargadas:', allBookings);
+    updateStats();
+    renderBookings();
+  } catch (error) {
+    console.error('Error al cargar reservas:', error);
+    showAlert('Error al cargar las reservas', 'danger');
+  }
 }
 
 function updateStats() {
@@ -53,25 +80,21 @@ function updateStats() {
     .filter(b => b.estado === 'confirmada')
     .reduce((sum, b) => sum + b.total, 0);
   
-  document.getElementById('totalBookings').textContent = allBookings.length;
-  document.getElementById('activeBookings').textContent = active;
-  document.getElementById('totalSpent').textContent = formatPrice(totalSpent);
+  const totalBookingsEl = document.getElementById('totalBookings');
+  const activeBookingsEl = document.getElementById('activeBookings');
+  const totalSpentEl = document.getElementById('totalSpent');
+  
+  if (totalBookingsEl) totalBookingsEl.textContent = allBookings.length;
+  if (activeBookingsEl) activeBookingsEl.textContent = active;
+  if (totalSpentEl) totalSpentEl.textContent = formatPrice(totalSpent);
 }
 
 function renderBookings() {
-  let bookingsToShow = allBookings;
-  
-  if (currentFilter === 'active') {
-    bookingsToShow = allBookings.filter(b => b.estado === 'confirmada');
-  } else if (currentFilter === 'cancelled') {
-    bookingsToShow = allBookings.filter(b => b.estado === 'cancelada');
-  }
-  
-  if (bookingsToShow.length === 0) {
+  if (allBookings.length === 0) {
     bookingsContainer.innerHTML = `
       <div class="empty-bookings">
         <i class="bi bi-calendar-x"></i>
-        <h3 class="text-muted">No tienes reservas${currentFilter !== 'all' ? ' ' + (currentFilter === 'active' ? 'activas' : 'canceladas') : ''}</h3>
+        <h3 class="text-muted">No tienes reservas</h3>
         <p class="text-muted">¡Haz tu primera reserva y disfruta de nuestras suites de lujo!</p>
         <a href="reservas.html" class="btn btn-gold mt-3">
           <i class="bi bi-plus-circle"></i> Nueva Reserva
@@ -81,13 +104,9 @@ function renderBookings() {
     return;
   }
   
-  bookingsContainer.innerHTML = bookingsToShow.map(booking => createBookingCard(booking)).join('');
+  bookingsContainer.innerHTML = allBookings.map(booking => createBookingCard(booking)).join('');
   
-  // Agregar event listeners
-  document.querySelectorAll('.btn-cancel-booking').forEach(btn => {
-    btn.addEventListener('click', () => handleCancelBooking(parseInt(btn.dataset.bookingId)));
-  });
-  
+  // Agregar event listeners solo para ver detalles
   document.querySelectorAll('.btn-view-details').forEach(btn => {
     btn.addEventListener('click', () => showDetails(parseInt(btn.dataset.bookingId)));
   });
@@ -95,6 +114,19 @@ function renderBookings() {
 
 function createBookingCard(booking) {
   const room = getRoomById(booking.roomId);
+  
+  // Si no se encuentra la habitación, usar datos por defecto
+  if (!room) {
+    console.warn('Habitación no encontrada:', booking.roomId);
+    return `
+      <div class="booking-card">
+        <div class="booking-header bg-danger">
+          <p class="mb-0 text-white">Error: Habitación no encontrada (ID: ${booking.roomId})</p>
+        </div>
+      </div>
+    `;
+  }
+  
   const isActive = booking.estado === 'confirmada';
   const isPast = new Date(booking.fechaFin) < new Date();
   
@@ -116,7 +148,9 @@ function createBookingCard(booking) {
       <div class="booking-body">
         <div class="row">
           <div class="col-md-4 mb-3 mb-md-0">
-            <img src="assets/img/rooms/${room.imagen}" alt="${room.nombre}" class="booking-image"
+            <img src="assets/img/rooms/${room.imagen}" 
+                 alt="${room.nombre}" 
+                 class="booking-image"
                  onerror="this.src='https://picsum.photos/400/300?random=${booking.id}'">
           </div>
           
@@ -151,14 +185,10 @@ function createBookingCard(booking) {
             
             <div class="mt-3 d-flex gap-2 flex-wrap">
               <button class="btn btn-sm btn-outline-dark btn-view-details" data-booking-id="${booking.id}">
-                <i class="bi bi-eye"></i> Ver Detalles
+                <i class="bi bi-eye"></i> Ver Detalles Completos
               </button>
-              ${isActive && !isPast ? `
-                <button class="btn btn-sm btn-danger btn-cancel-booking" data-booking-id="${booking.id}">
-                  <i class="bi bi-x-circle"></i> Cancelar Reserva
-                </button>
-              ` : ''}
-              ${isPast && isActive ? '<span class="badge bg-secondary">Completada</span>' : ''}
+              ${isPast && isActive ? '<span class="badge bg-success"><i class="bi bi-check-circle"></i> Completada</span>' : ''}
+              ${!isPast && isActive ? '<span class="badge bg-info"><i class="bi bi-clock"></i> Próxima</span>' : ''}
             </div>
           </div>
         </div>
@@ -167,23 +197,21 @@ function createBookingCard(booking) {
   `;
 }
 
-function handleCancelBooking(bookingId) {
-  const booking = allBookings.find(b => b.id === bookingId);
-  const room = getRoomById(booking.roomId);
-  
-  if (confirm(`¿Estás seguro que deseas cancelar tu reserva en ${room.nombre}?`)) {
-    if (cancelBooking(bookingId)) {
-      showAlert('Reserva cancelada exitosamente', 'success');
-      loadBookings();
-    } else {
-      showAlert('Error al cancelar la reserva', 'danger');
-    }
-  }
-}
-
+// ========================================
+// MOSTRAR DETALLES (SOLO LECTURA)
+// ========================================
 function showDetails(bookingId) {
   const booking = allBookings.find(b => b.id === bookingId);
+  if (!booking) {
+    showAlert('Reserva no encontrada', 'danger');
+    return;
+  }
+  
   const room = getRoomById(booking.roomId);
+  if (!room) {
+    showAlert('Información de la habitación no disponible', 'danger');
+    return;
+  }
   
   const fechaInicio = new Date(booking.fechaInicio);
   const fechaFin = new Date(booking.fechaFin);
@@ -192,14 +220,18 @@ function showDetails(bookingId) {
   document.getElementById('detailsBody').innerHTML = `
     <div class="row">
       <div class="col-md-6">
-        <img src="assets/img/rooms/${room.imagen}" class="img-fluid rounded mb-3" alt="${room.nombre}"
+        <img src="assets/img/rooms/${room.imagen}" 
+             class="img-fluid rounded mb-3" 
+             alt="${room.nombre}"
              onerror="this.src='https://picsum.photos/500/400?random=${booking.id}'">
       </div>
       <div class="col-md-6">
         <h4 class="mb-3">${room.nombre}</h4>
         <p class="text-muted">${room.descripcion}</p>
         
-        <h6 class="mt-4 mb-3 text-gold">Información de la Reserva</h6>
+        <h6 class="mt-4 mb-3 text-gold">
+          <i class="bi bi-info-circle"></i> Información de la Reserva
+        </h6>
         <ul class="list-unstyled">
           <li class="mb-2">
             <i class="bi bi-hash text-gold"></i> 
@@ -232,15 +264,11 @@ function showDetails(bookingId) {
               ${booking.estado === 'confirmada' ? 'Confirmada' : 'Cancelada'}
             </span>
           </li>
-          ${booking.fechaCancelacion ? `
-            <li class="mb-2">
-              <i class="bi bi-x-circle text-danger"></i> 
-              <strong>Cancelada:</strong> ${formatDate(booking.fechaCancelacion)}
-            </li>
-          ` : ''}
         </ul>
         
-        <h6 class="mt-4 mb-3 text-gold">Servicios Incluidos</h6>
+        <h6 class="mt-4 mb-3 text-gold">
+          <i class="bi bi-star"></i> Servicios Incluidos
+        </h6>
         <div class="mb-3">
           ${room.servicios.map(s => `
             <span class="service-badge">
@@ -250,7 +278,9 @@ function showDetails(bookingId) {
         </div>
         
         <div class="alert alert-info">
-          <h6 class="alert-heading">Detalles del Costo</h6>
+          <h6 class="alert-heading">
+            <i class="bi bi-currency-dollar"></i> Detalles del Costo
+          </h6>
           <div class="d-flex justify-content-between mb-1">
             <span>Precio por noche:</span>
             <strong>${formatPrice(room.precio)}</strong>
@@ -269,24 +299,20 @@ function showDetails(bookingId) {
     </div>
     
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-      ${booking.estado === 'confirmada' && new Date(booking.fechaFin) > new Date() ? `
-        <button type="button" class="btn btn-danger" onclick="cancelFromModal(${booking.id})">
-          <i class="bi bi-x-circle"></i> Cancelar Reserva
-        </button>
-      ` : ''}
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <i class="bi bi-x-circle"></i> Cerrar
+      </button>
     </div>
   `;
   
-  detailsModal.show();
+  if (detailsModal) {
+    detailsModal.show();
+  }
 }
 
-// Cancelar desde modal
-window.cancelFromModal = function(bookingId) {
-  detailsModal.hide();
-  setTimeout(() => handleCancelBooking(bookingId), 300);
-};
-
+// ========================================
+// MOSTRAR ALERTAS
+// ========================================
 function showAlert(message, type) {
   const alertDiv = document.createElement('div');
   alertDiv.className = `alert alert-${type} alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3`;
@@ -301,21 +327,35 @@ function showAlert(message, type) {
   setTimeout(() => alertDiv.remove(), 3000);
 }
 
-// Filtros
-document.getElementById('filterAll').addEventListener('change', () => {
-  currentFilter = 'all';
-  renderBookings();
-});
+// ========================================
+// FILTROS DE RESERVAS
+// ========================================
+const filterAll = document.getElementById('filterAll');
+const filterActive = document.getElementById('filterActive');
+const filterPast = document.getElementById('filterPast');
 
-document.getElementById('filterActive').addEventListener('change', () => {
-  currentFilter = 'active';
-  renderBookings();
-});
+if (filterAll) {
+  filterAll.addEventListener('change', () => {
+    currentFilter = 'all';
+    renderBookings();
+  });
+}
 
-document.getElementById('filterCancelled').addEventListener('change', () => {
-  currentFilter = 'cancelled';
-  renderBookings();
-});
+if (filterActive) {
+  filterActive.addEventListener('change', () => {
+    currentFilter = 'active';
+    renderBookings();
+  });
+}
 
-// Cargar reservas inicialmente
+if (filterPast) {
+  filterPast.addEventListener('change', () => {
+    currentFilter = 'past';
+    renderBookings();
+  });
+}
+
+// ========================================
+// CARGAR RESERVAS AL INICIAR
+// ========================================
 loadBookings();

@@ -20,8 +20,9 @@
 </head>
 <body>
   
-<!-- NAVBAR UNIFICADO - Reemplazar en TODAS las páginas -->
-<!-- NAVBAR UNIFICADO - Reemplazar en TODAS las páginas -->
+<!-- ========================================
+     NAVBAR
+     ======================================== -->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
   <div class="container">
     <a class="navbar-brand" href="index.html">
@@ -34,61 +35,32 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         
-        <!-- INICIO -->
         <li class="nav-item">
           <a class="nav-link" href="index.html">Inicio</a>
         </li>
         
-        <!-- HABITACIONES CON DROPDOWN -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="habitacionesDropdown" role="button">
             Habitaciones
           </a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="habitacionesDropdown">
-            <li>
-              <a class="dropdown-item" href="html/habitacion1.html">
-                Suite Deluxe
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="html/habitacion2.html">
-                Suite Presidencial
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="html/habitacion3.html">
-                Suite Familiar
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="html/habitacion4.html">
-                Suite Junior
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="html/habitacion5.html">
-                Suite Romántica
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="html/habitacion6.html">
-                Suite Ejecutiva
-              </a>
-            </li>
+            <li><a class="dropdown-item" href="html/habitacion1.html">Suite Deluxe</a></li>
+            <li><a class="dropdown-item" href="html/habitacion2.html">Suite Presidencial</a></li>
+            <li><a class="dropdown-item" href="html/habitacion3.html">Suite Familiar</a></li>
+            <li><a class="dropdown-item" href="html/habitacion4.html">Suite Junior</a></li>
+            <li><a class="dropdown-item" href="html/habitacion5.html">Suite Romántica</a></li>
+            <li><a class="dropdown-item" href="html/habitacion6.html">Suite Ejecutiva</a></li>
           </ul>
         </li>
         
-        <!-- RESERVAS -->
         <li class="nav-item">
           <a class="nav-link" href="reservas.html">Reservas</a>
         </li>
         
-        <!-- CONTACTO -->
         <li class="nav-item">
           <a class="nav-link" href="contacto.html">Contacto</a>
         </li>
         
-        <!-- USUARIO -->
         <li class="nav-item" id="userMenuItem">
           <a class="nav-link" href="login.html">
             <i class="bi bi-person-circle"></i> Ingresar
@@ -99,104 +71,108 @@
     </div>
   </div>
 </nav>
-  <!-- HEADER -->
-  <header class="profile-header">
-    <div class="container text-center">
-      <h1 class="display-4 fw-bold mb-3">Mi Perfil</h1>
-      <p class="lead">Gestiona tus reservas y preferencias</p>
-    </div>
-  </header>
-  
-  <!-- PROFILE CARD -->
-  <section class="pb-5">
-    <div class="container">
-      <div class="profile-card">
-        <div class="user-avatar">
-          <i class="bi bi-person-fill"></i>
-        </div>
-        <div class="text-center mb-4">
-          <h3 id="profileName">Cargando...</h3>
-          <p class="text-muted" id="profileEmail">email@example.com</p>
-        </div>
-        
-        <!-- ESTADÍSTICAS -->
-        <div class="row g-3 mt-4">
-          <div class="col-md-4">
-            <div class="stats-card">
-              <div class="stats-number" id="totalBookings">0</div>
-              <div class="stats-label">Total Reservas</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="stats-card">
-              <div class="stats-number" id="activeBookings">0</div>
-              <div class="stats-label">Activas</div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="stats-card">
-              <div class="stats-number" id="totalSpent">$0</div>
-              <div class="stats-label">Gastado Total</div>
-            </div>
-          </div>
-        </div>
+
+<!-- ========================================
+     HEADER
+     ======================================== -->
+<header class="profile-header">
+  <div class="container text-center">
+    <h1 class="display-4 fw-bold mb-3">Mi Perfil</h1>
+    <p class="lead">Gestiona tus reservas y preferencias</p>
+  </div>
+</header>
+
+<!-- ========================================
+     PROFILE CARD
+     ======================================== -->
+<section class="pb-5">
+  <div class="container">
+    <div class="profile-card">
+      <div class="user-avatar">
+        <i class="bi bi-person-fill"></i>
       </div>
-    </div>
-  </section>
-  
-  <!-- FILTROS -->
-  <section class="py-4 bg-light">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <h3 class="mb-0">
-          <i class="bi bi-calendar-check"></i> Mis Reservas
-        </h3>
-        <div class="btn-group" role="group">
-          <input type="radio" class="btn-check" name="statusFilter" id="filterAll" checked>
-          <label class="btn btn-outline-dark" for="filterAll">Todas</label>
-          
-          <input type="radio" class="btn-check" name="statusFilter" id="filterActive">
-          <label class="btn btn-outline-success" for="filterActive">Activas</label>
-          
-          <input type="radio" class="btn-check" name="statusFilter" id="filterCancelled">
-          <label class="btn btn-outline-danger" for="filterCancelled">Canceladas</label>
-        </div>
+      <div class="text-center mb-4">
+        <h3 id="profileName">Cargando...</h3>
+        <p class="text-muted" id="profileEmail">email@example.com</p>
+        <button class="btn btn-outline-danger btn-sm mt-2" id="logoutBtn">
+          <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+        </button>
       </div>
-    </div>
-  </section>
-  
-  <!-- RESERVAS -->
-  <section class="py-5">
-    <div class="container">
-      <div id="bookingsContainer">
-        <div class="text-center py-5">
-          <div class="spinner-border text-gold" role="status">
-            <span class="visually-hidden">Cargando...</span>
+      
+      <!-- ESTADÍSTICAS -->
+      <div class="row g-3 mt-4">
+        <div class="col-md-4">
+          <div class="stats-card">
+            <div class="stats-number" id="totalBookings">0</div>
+            <div class="stats-label">Total Reservas</div>
           </div>
-          <p class="mt-3 text-muted">Cargando tus reservas...</p>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <!-- MODAL DETALLES -->
-  <div class="modal fade" id="detailsModal" tabindex="-1">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title">
-            <i class="bi bi-info-circle"></i> Detalles de la Reserva
-          </h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <div class="col-md-4">
+          <div class="stats-card">
+            <div class="stats-number" id="activeBookings">0</div>
+            <div class="stats-label">Activas</div>
+          </div>
         </div>
-        <div class="modal-body" id="detailsBody">
-          <!-- Se llenará dinámicamente -->
+        <div class="col-md-4">
+          <div class="stats-card">
+            <div class="stats-number" id="totalSpent">$0</div>
+            <div class="stats-label">Gastado Total</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
-  <!-- FOOTER CORREGIDO -->
+</section>
+
+<!-- ========================================
+     TÍTULO DE RESERVAS
+     ======================================== -->
+<section class="py-4 bg-light">
+  <div class="container">
+    <h3 class="mb-0">
+      <i class="bi bi-calendar-check"></i> Mis Reservas
+    </h3>
+  </div>
+</section>
+
+<!-- ========================================
+     LISTA DE RESERVAS
+     ======================================== -->
+<section class="py-5">
+  <div class="container">
+    <div id="bookingsContainer">
+      <div class="text-center py-5">
+        <div class="spinner-border text-gold" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-3 text-muted">Cargando tus reservas...</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================
+     MODAL DETALLES
+     ======================================== -->
+<div class="modal fade" id="detailsModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title">
+          <i class="bi bi-info-circle"></i> Detalles de la Reserva
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="detailsBody">
+        <!-- Se llenará dinámicamente -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================
+     FOOTER
+     ======================================== -->
 <footer class="footer bg-dark text-white">
   <div class="container">
     <div class="row g-4">
@@ -204,10 +180,7 @@
       <!-- Columna 1: Sobre el Hotel -->
       <div class="col-lg-3 col-md-6 mb-4">
         <h5 class="text-gold mb-3">El Rincón del Carmen</h5>
-        <p>
-          Tu refugio de lujo en el corazón de Bogotá. 
-          Experiencias inolvidables desde 2020.
-        </p>
+        <p>Tu refugio de lujo en el corazón de Bogotá. Experiencias inolvidables desde 2020.</p>
       </div>
 
       <!-- Columna 2: Enlaces Rápidos -->
@@ -271,11 +244,13 @@
     </div>
   </div>
 </footer>
-  
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script type="module" src="js/mis-reservas.js"></script>
-  <script src="js/navbar.js"></script>
-  <script src="js/navbar-user.js"></script>
-</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module" src="js/storage.js"></script>
+<script type="module" src="js/mis-reservas.js"></script>
+<script src="js/navbar.js"></script>
+<Script src="js/navbar-user.js"></Script>
+
 </body>
 </html>
