@@ -581,7 +581,7 @@ Ver archivo [LICENSE](LICENSE) para más detalles.
 
 ### **Tomás Esteban González Quintero**
 
-Desarrollador Frontend | JavaScript Enthusiast
+Desarrollador
 
 [![Portfolio](https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=About.me&logoColor=white)](https://proyecto-javascrip.netlify.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tu-usuario)
@@ -653,7 +653,5 @@ Sí, usa el panel de administración → "Nueva Habitación"
 ---
 
 **Desarrollado con ❤️ por Tomás Esteban González Quintero**
-
-*Última actualización: Enero 2025*
 
 </div>
