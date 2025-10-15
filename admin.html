@@ -35,6 +35,11 @@
         </a>
       </li>
       <li>
+      <a href="#booking" class="menu-link" data-section="booking">
+          <i class="bi bi-calendar-check"></i> Check-in
+        </a>
+      </li>
+      <li>
         <a href="#" id="logoutBtn">
           <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
         </a>
@@ -140,8 +145,121 @@
       </div>
     </div>
     
+    <div id="booking-section" class="content-section" style="display: none;">
+      <div class="admin-header">
+        <h2 class="mb-0">
+          <i class="bi bi-calendar-check text-gold"></i> Check-in
+        </h2>
+        <p class="text-muted mb-0">Administra los check-in</p>
+      </div>
+      
+      <div class="section-card">
+        <div class="mb-3">
+          <div class="btn-group" role="group">
+            <input type="radio" class="btn-check" name="bookingFilter" id="allBooking" checked>
+            <label class="btn btn-outline-dark" for="allBooking">Todas</label>
+          </div>
+        </div>
+        
+        <div class="table-responsive">
+          <table class="table table-hover" id="bookingTable">
+            <thead class="table-dark">
+              <tr>
+                <th></th>
+                <th>H</th>
+                <th>Cliente</th>
+                <th>Check-in</th>
+
+              </tr>
+            </thead>
+
+              <tr>
+
   </main>
+  <form id="regisForm">
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="identificacion" class="form-label" id="id">
+          <i class="bi bi-card-text"></i> Identificación *
+        </label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="identificacion" 
+          placeholder="123456789"
+          required
+        >
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="nombre" class="form-label" id="nombre">
+          <i class="bi bi-person"></i> Nombre Completo *
+        </label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="nombre" 
+          placeholder="Juan Pérez"
+          required
+        >
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <label for="email" class="form-label" id="email">
+          <i class="bi bi-envelope"></i> Email *
+        </label>
+        <input 
+          type="email" 
+          class="form-control" 
+          id="email" 
+          placeholder="tu@email.com"
+          required
+        >
+      </div>
+      
+      <div class="col-md-6 mb-3">
+        <label for="telefono" class="form-label" id="telefono">
+          <i class="bi bi-phone"></i> Teléfono *
+        </label>
+        <input 
+          type="tel" 
+          class="form-control" 
+          id="telefono" 
+          placeholder="3001234567"
+          required
+        >
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="identificacion" class="form-label" id="horallegada">
+        <i class=""></i> Hora de llegada *
+      </label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="identificacion" 
+        placeholder="14:00"
+        required
+      >
+    </div>
+    
+    <div class="mb-3">
+      <label for="nacionalidad" class="form-label">
+        <i class=""></i> Descripción *
+      </label>
+      <input 
+        type="text" 
+        class="form-control" 
+        id="nacionalidad" 
+        placeholder=""
+        required
+      >
+    </div>
+  </form>
   
+
   <!-- MODAL HABITACIÓN -->
   <div class="modal fade" id="roomModal" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -216,5 +334,6 @@
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script type="module" src="js/admin.js"></script>
+  <script src="js/admin2.js"></script>
 </body>
 </html>

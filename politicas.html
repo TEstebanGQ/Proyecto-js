@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Políticas del Hotel | El Rincón del Carmen</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/navbar-logo.css">
+</head>
+<body>
+
+<!-- NAVBAR UNIFICADO -->
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <img src="assets/icons/logo1.png" alt="Logo Hotel" class="brand-logo">
+      <span class="brand-text">EL RINCÓN DEL CARMEN</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+
+        <!-- INICIO -->
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Inicio</a>
+        </li>
+
+        <!-- HABITACIONES CON DROPDOWN -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="habitacionesDropdown" role="button">
+            Habitaciones
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="habitacionesDropdown">
+            <li>
+              <a class="dropdown-item" href="html/habitacion1.html">
+                Suite Deluxe
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion2.html">
+                Suite Presidencial
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion3.html">
+                Suite Familiar
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion4.html">
+                Suite Junior
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion5.html">
+                Suite Romántica
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="html/habitacion6.html">
+                Suite Ejecutiva
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <!-- RESERVAS -->
+        <li class="nav-item">
+          <a class="nav-link" href="reservas.html">Reservas</a>
+        </li>
+
+        <!-- CONTACTO -->
+        <li class="nav-item">
+          <a class="nav-link" href="contacto.html">Contacto</a>
+        </li>
+
+        <!-- USUARIO -->
+        <li class="nav-item" id="userMenuItem">
+          <a class="nav-link" href="login.html">
+            <i class="bi bi-person-circle"></i> Ingresar
+          </a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HEADER -->
+<header class="reservas-header">
+  <div class="container text-center">
+    <h1 class="display-4 fw-bold mb-3">
+      <i class="bi bi-file-earmark-text"></i> Políticas del Hotel
+    </h1>
+    <p class="lead">Conoce nuestras normas y condiciones para una estadía placentera</p>
+  </div>
+</header>
+
+<!-- POLÍTICAS SECTION -->
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+
+        <!-- CHECK-IN Y CHECK-OUT -->
+        <div class="card mb-4 border-gold">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+              <i class="bi bi-clock-history text-gold"></i> Horarios de Check-in y Check-out
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="text-center p-4 bg-light rounded">
+                  <i class="bi bi-box-arrow-in-right text-success fs-1 mb-3"></i>
+                  <h5 class="text-success">Check-in</h5>
+                  <h3 class="text-gold fw-bold">14:00</h3>
+                  <p class="mb-0">Horario de llegada a partir de las 2:00 PM</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="text-center p-4 bg-light rounded">
+                  <i class="bi bi-box-arrow-right text-danger fs-1 mb-3"></i>
+                  <h5 class="text-danger">Check-out</h5>
+                  <h3 class="text-gold fw-bold">12:00</h3>
+                  <p class="mb-0">Horario de salida hasta las 12:00 PM</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="alert alert-warning mt-4">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+              <strong>Importante:</strong> Si no se realiza el check-in efectivo antes de las <strong>16:00</strong> del día de llegada,
+              la reserva será automáticamente cancelada y la habitación quedará disponible para otros huéspedes.
+              Esta política asegura una gestión eficiente de nuestras habitaciones y permite atender a más clientes.
+            </div>
+          </div>
+        </div>
+
+        <!-- POLÍTICAS GENERALES -->
+        <div class="card mb-4 border-gold">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+              <i class="bi bi-shield-check text-gold"></i> Políticas Generales
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h6 class="text-gold mb-3">
+                  <i class="bi bi-credit-card"></i> Pagos y Depósitos
+                </h6>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Se requiere tarjeta de crédito válida para garantizar la reserva</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Pago completo al momento del check-in</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> No se aceptan pagos en efectivo</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Depósito reembolsable de $50.000 por daños</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="text-gold mb-3">
+                  <i class="bi bi-people"></i> Huéspedes
+                </h6>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Registro obligatorio de todos los huéspedes</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Identificación válida requerida</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Edad mínima: 18 años</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Máximo 2 adultos por habitación (consultar para niños)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- POLÍTICAS DE CANCELACIÓN -->
+        <div class="card mb-4 border-gold">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+              <i class="bi bi-x-circle text-gold"></i> Cancelaciones y Modificaciones
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead class="table-dark">
+                  <tr>
+                    <th>Anticipación</th>
+                    <th>Política</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Más de 7 días</td>
+                    <td>Cancelación gratuita</td>
+                  </tr>
+                  <tr>
+                    <td>3-7 días</td>
+                    <td>Cargo del 50% del valor total</td>
+                  </tr>
+                  <tr>
+                    <td>Menos de 3 días</td>
+                    <td>Cargo del 100% del valor total</td>
+                  </tr>
+                  <tr>
+                    <td>No show</td>
+                    <td>Cargo del 100% + liberación automática de habitación</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- POLÍTICAS ADICIONALES -->
+        <div class="card mb-4 border-gold">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+              <i class="bi bi-house-heart text-gold"></i> Normas de Convivencia
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6">
+                <h6 class="text-gold mb-3">Permitido</h6>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Mascotas pequeñas (con previa autorización)</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Música a volumen moderado hasta las 22:00</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Uso de instalaciones comunes</li>
+                  <li class="mb-2"><i class="bi bi-check-circle text-success"></i> Servicio a la habitación 24/7</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h6 class="text-gold mb-3">No Permitido</h6>
+                <ul class="list-unstyled">
+                  <li class="mb-2"><i class="bi bi-x-circle text-danger"></i> Fumar en habitaciones o áreas comunes</li>
+                  <li class="mb-2"><i class="bi bi-x-circle text-danger"></i> Ruido excesivo después de las 22:00</li>
+                  <li class="mb-2"><i class="bi bi-x-circle text-danger"></i> Invitados no registrados</li>
+                  <li class="mb-2"><i class="bi bi-x-circle text-danger"></i> Almacenamiento de alimentos perecederos</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SERVICIOS E INSTALACIONES -->
+        <div class="card mb-4 border-gold">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+              <i class="bi bi-star text-gold"></i> Servicios e Instalaciones
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 mb-3">
+                <div class="text-center">
+                  <i class="bi bi-wifi text-gold fs-2 mb-2"></i>
+                  <h6>WiFi Gratuito</h6>
+                  <small class="text-muted">Conexión de alta velocidad en todas las áreas</small>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-center">
+                  <i class="bi bi-car-front text-gold fs-2 mb-2"></i>
+                  <h6>Estacionamiento</h6>
+                  <small class="text-muted">Seguro y gratuito para huéspedes</small>
+                </div>
+              </div>
+              <div class="col-md-4 mb-3">
+                <div class="text-center">
+                  <i class="bi bi-cup-hot text-gold fs-2 mb-2"></i>
+                  <h6>Desayuno Buffet</h6>
+                  <small class="text-muted">Incluido en todas las habitaciones</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONTACTO DE EMERGENCIA -->
+        <div class="card border-gold">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">
+              <i class="bi bi-telephone text-gold"></i> Contacto de Emergencia
+            </h4>
+          </div>
+          <div class="card-body text-center">
+            <p class="mb-2">Para emergencias o consultas, contáctanos las 24 horas:</p>
+            <h5 class="text-gold mb-3">
+              <i class="bi bi-phone"></i> +57 320 123 4567
+            </h5>
+            <p class="mb-0">
+              <i class="bi bi-envelope"></i> emergencias@rincondelcarmen.com
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer bg-dark text-white">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Columna 1: Sobre el Hotel -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">El Rincón del Carmen</h5>
+        <p>
+          Tu refugio de lujo en el corazón de Bogotá.
+          Experiencias inolvidables desde 2020.
+        </p>
+      </div>
+
+      <!-- Columna 2: Enlaces Rápidos -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">Enlaces Rápidos</h5>
+        <ul class="list-unstyled">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="reservas.html">Reservas</a></li>
+          <li><a href="contacto.html">Contacto</a></li>
+          <li><a href="login.html">Iniciar Sesión</a></li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: Contacto -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">Contacto</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="bi bi-geo-alt text-gold"></i>
+            Calle 93 #11-74, Bogotá D.C.
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-phone text-gold"></i>
+            +57 320 123 4567
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-envelope text-gold"></i>
+            info@rincondelcarmen.com
+          </li>
+          <li class="mb-2">
+            <i class="bi bi-clock text-gold"></i>
+            Atención 24/7
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Redes Sociales -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <h5 class="text-gold mb-3">Síguenos</h5>
+        <div class="d-flex gap-3">
+          <a href="#" class="text-white fs-4"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="text-white fs-4"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="text-white fs-4"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Copyright -->
+    <div class="row">
+      <div class="col-12">
+        <p class="text-center mb-0">
+          © 2025 Hotel El Rincón del Carmen. Todos los derechos reservados.
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/navbar-user.js"></script>
+<script>
+  // Navbar transparente con efecto scroll
+  window.addEventListener('scroll', function() {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 100) {
+      nav.classList.add('navbar-scrolled');
+    } else {
+      nav.classList.remove('navbar-scrolled');
+    }
+  });
+</script>
+</body>
+</html>
