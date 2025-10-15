@@ -318,11 +318,28 @@ function showBookingModal(roomId, fechaInicio, fechaFin, personas, nights) {
       </div>
     </div>
     
+<hr>
+    
+    <div class="">
+      <h6 class="mb-2"><i class=""></i>Check-in</h6>
+      <ul class="mb-2 small">
+        <li>Check-in disponible a partir de las 14:00</li>
+        <li>Si no realiza el check-in efectivo antes de las 16:00, su reserva será cancelada automáticamente</li>
+        <li>La habitación quedará disponible para otros huééspedes sin previo aviso</li>
+      </ul>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="acceptPolicies" required>
+        <label class="form-check-label small" for="acceptPolicies">
+         <a href="politicas.html" target="_blank" class="text-decoration-underline"> He leído y acepto las políticas del hotel</a>
+        </label>
+      </div>
+    </div>
+    
     <div class="modal-footer">
       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
         <i class="bi bi-x-circle"></i> Cancelar
       </button>
-      <button type="button" class="btn btn-gold" id="confirmBookingBtn">
+      <button type="button" class="btn btn-gold" id="confirmBookingBtn" disabled>
         <i class="bi bi-check-circle"></i> Confirmar Reserva
       </button>
     </div>
@@ -330,11 +347,20 @@ function showBookingModal(roomId, fechaInicio, fechaFin, personas, nights) {
   
   bookingModal.show();
   
+  // Habilitar botón solo si acepta políticas
+  const acceptPolicies = document.getElementById('acceptPolicies');
+  const confirmBtn = document.getElementById('confirmBookingBtn');
+  
+  acceptPolicies.addEventListener('change', function() {
+    confirmBtn.disabled = !this.checked;
+  });
+  
   // Confirmar reserva
   document.getElementById('confirmBookingBtn').addEventListener('click', () => {
     confirmBooking(roomId, fechaInicio, fechaFin, personas, total);
   });
 }
+
 
 // ========================================
 // CONFIRMAR RESERVA

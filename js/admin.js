@@ -1,5 +1,5 @@
 // ========================================
-// SCRIPT PANEL ADMINISTRATIVO COMPLETO
+// SCRIPT PANEL ADMINISTRATIVO
 // ========================================
 
 import {
@@ -20,9 +20,7 @@ import {
   formatDate
 } from './storage.js';
 
-// ========================================
-// VERIFICACIÓN DE ACCESO
-// ========================================
+// Verificar que sea admin
 if (!isAdmin()) {
   alert('Acceso denegado. Solo administradores.');
   window.location.href = 'index.html';
@@ -31,22 +29,16 @@ if (!isAdmin()) {
 const user = getCurrentUser();
 document.getElementById('adminName').textContent = user.nombre;
 
-// ========================================
-// VARIABLES GLOBALES
-// ========================================
+// Variables globales
 let currentRoomId = null;
 const roomModal = new bootstrap.Modal(document.getElementById('roomModal'));
 
-// ========================================
-// SIDEBAR TOGGLE MÓVIL
-// ========================================
+// Sidebar toggle móvil
 document.getElementById('sidebarToggle').addEventListener('click', () => {
   document.getElementById('adminSidebar').classList.toggle('show');
 });
 
-// ========================================
-// NAVEGACIÓN ENTRE SECCIONES
-// ========================================
+// Navegación
 document.querySelectorAll('.menu-link').forEach(link => {
   link.addEventListener('click', (e) => {
     e.preventDefault();
@@ -69,23 +61,17 @@ document.querySelectorAll('.menu-link').forEach(link => {
   });
 });
 
-// ========================================
-// CERRAR SESIÓN
-// ========================================
+// Cerrar sesión
 document.getElementById('logoutBtn').addEventListener('click', (e) => {
   e.preventDefault();
   logout();
   window.location.href = 'login.html';
 });
 
-// ========================================
-// CARGAR HABITACIONES INICIALMENTE
-// ========================================
+// Cargar habitaciones inicialmente
 loadRooms();
 
-// ========================================
-// FUNCIÓN: CARGAR HABITACIONES
-// ========================================
+// Funciones de carga de datos
 function loadRooms() {
   const rooms = getRooms();
   const tbody = document.querySelector('#roomsTable tbody');
@@ -118,9 +104,6 @@ function loadRooms() {
   });
 }
 
-// ========================================
-// FUNCIÓN: CARGAR RESERVAS
-// ========================================
 function loadBookings() {
   filterBookings();
   
@@ -130,9 +113,6 @@ function loadBookings() {
   document.getElementById('cancelledBookings').addEventListener('change', filterBookings);
 }
 
-// ========================================
-// FUNCIÓN: FILTRAR RESERVAS
-// ========================================
 function filterBookings() {
   const all = document.getElementById('allBookings').checked;
   const confirmed = document.getElementById('confirmedBookings').checked;
@@ -172,12 +152,9 @@ function filterBookings() {
         </span>
       </td>
       <td class="table-actions">
-        <button class="btn btn-sm btn-outline-primary" onclick="window.viewInvoice(${booking.id})" title="Ver Factura">
-          <i class="bi bi-receipt"></i>
-        </button>
         ${booking.estado === 'confirmada' ? `
-          <button class="btn btn-sm btn-outline-danger" onclick="window.cancelBooking(${booking.id})" title="Cancelar Reserva">
-            <i class="bi bi-x-circle"></i>
+          <button class="btn btn-sm btn-outline-danger" onclick="window.cancelBooking(${booking.id})">
+            <i class="bi bi-x-circle"></i> Cancelar
           </button>
         ` : ''}
       </td>
@@ -186,9 +163,7 @@ function filterBookings() {
   });
 }
 
-// ========================================
-// FUNCIÓN: ABRIR MODAL DE HABITACIÓN
-// ========================================
+// Funciones de gestión de habitaciones
 window.openRoomModal = function(id = null) {
   currentRoomId = id;
   document.getElementById('roomForm').reset();
@@ -244,9 +219,6 @@ window.openRoomModal = function(id = null) {
   roomModal.show();
 };
 
-// ========================================
-// FUNCIÓN: AGREGAR INPUT DE SERVICIO
-// ========================================
 window.addServiceInput = function() {
   const servicesContainer = document.getElementById('servicesContainer');
   const div = document.createElement('div');
@@ -260,9 +232,6 @@ window.addServiceInput = function() {
   servicesContainer.appendChild(div);
 };
 
-// ========================================
-// FUNCIÓN: ELIMINAR INPUT DE SERVICIO
-// ========================================
 window.removeServiceInput = function(button) {
   button.parentElement.remove();
 };
@@ -294,7 +263,7 @@ document.getElementById('roomForm').addEventListener('submit', (e) => {
     camas, 
     personas, 
     precioNoche, 
-    precio: precioNoche,
+    precio: precioNoche, // Mantener ambas propiedades por compatibilidad
     servicios 
   };
   
@@ -310,9 +279,6 @@ document.getElementById('roomForm').addEventListener('submit', (e) => {
   loadRooms();
 });
 
-// ========================================
-// FUNCIÓN: ELIMINAR HABITACIÓN
-// ========================================
 window.deleteRoomById = function(id) {
   if (confirm('¿Estás seguro de eliminar esta habitación? Esta acción no se puede deshacer.')) {
     deleteRoom(id);
@@ -321,9 +287,6 @@ window.deleteRoomById = function(id) {
   }
 };
 
-// ========================================
-// FUNCIÓN: CANCELAR RESERVA
-// ========================================
 window.cancelBooking = function(id) {
   if (confirm('¿Estás seguro de cancelar esta reserva?')) {
     cancelBookingStorage(id);
@@ -332,210 +295,6 @@ window.cancelBooking = function(id) {
   }
 };
 
-// ========================================
-// FUNCIÓN: VER FACTURA
-// ========================================
-window.viewInvoice = function(id) {
-  const booking = getBookings().find(b => b.id === id);
-  if (!booking) {
-    alert('Reserva no encontrada');
-    return;
-  }
-
-  const room = getRoomById(booking.roomId);
-  const user = getUserById(booking.userId);
-  
-  if (!room || !user) {
-    alert('Error al cargar los datos de la factura');
-    return;
-  }
-
-  const nights = Math.ceil((new Date(booking.fechaFin) - new Date(booking.fechaInicio)) / (1000 * 60 * 60 * 24));
-  const total = booking.total;
-
-  const invoiceHTML = `
-    <div class="invoice-container" style="max-width: 800px; margin: 0 auto; font-family: Arial, sans-serif;">
-      <!-- HEADER -->
-      <div style="background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%); color: white; padding: 30px; border-radius: 10px 10px 0 0;">
-        <div style="display: flex; justify-content: space-between; align-items: start;">
-          <div>
-            <h2 style="margin: 0; color: #d4af37; font-size: 28px;">
-              <i class="bi bi-building"></i> EL RINCÓN DEL CARMEN
-            </h2>
-            <p style="margin: 5px 0 0 0; font-size: 14px;">Hotel Boutique de Lujo</p>
-          </div>
-          <div style="text-align: right;">
-            <h3 style="margin: 0; color: #d4af37; font-size: 24px;">FACTURA</h3>
-            <p style="margin: 5px 0 0 0; font-size: 14px;">N° ${String(booking.id).padStart(8, '0')}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- DATOS DEL CLIENTE -->
-      <div style="background: #f8f9fa; padding: 20px; border-left: 4px solid #d4af37; border-right: 4px solid #d4af37;">
-        <h4 style="margin: 0 0 10px 0; color: #1a1a1a; font-size: 16px;">
-          <i class="bi bi-person-circle" style="color: #d4af37;"></i> Datos del Cliente
-        </h4>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-          <p style="margin: 3px 0; font-size: 13px;"><strong>Nombre:</strong> ${user.nombre}</p>
-          <p style="margin: 3px 0; font-size: 13px;"><strong>Identificación:</strong> ${user.identificacion || 'N/A'}</p>
-          <p style="margin: 3px 0; font-size: 13px;"><strong>Email:</strong> ${user.email}</p>
-          <p style="margin: 3px 0; font-size: 13px;"><strong>Teléfono:</strong> ${user.telefono || 'N/A'}</p>
-          <p style="margin: 3px 0; font-size: 13px;"><strong>Nacionalidad:</strong> ${user.nacionalidad || 'N/A'}</p>
-        </div>
-      </div>
-
-      <!-- DATOS DE LA RESERVA -->
-      <div style="background: white; padding: 20px; border-left: 4px solid #d4af37; border-right: 4px solid #d4af37;">
-        <h4 style="margin: 0 0 15px 0; color: #1a1a1a; font-size: 16px; border-bottom: 2px solid #d4af37; padding-bottom: 10px;">
-          <i class="bi bi-calendar-check" style="color: #d4af37;"></i> Información de la Reserva
-        </h4>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
-          <div>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>Fecha de Emisión:</strong></p>
-            <p style="margin: 0; font-size: 13px; color: #555;">${formatDate(booking.fechaReserva)}</p>
-          </div>
-          <div>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>ID Reserva:</strong></p>
-            <p style="margin: 0; font-size: 13px; color: #555;">#${booking.id}</p>
-          </div>
-          <div>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>Check-in:</strong></p>
-            <p style="margin: 0; font-size: 13px; color: #555;">${formatDate(booking.fechaInicio)}</p>
-          </div>
-          <div>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>Check-out:</strong></p>
-            <p style="margin: 0; font-size: 13px; color: #555;">${formatDate(booking.fechaFin)}</p>
-          </div>
-          <div>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>N° de Noches:</strong></p>
-            <p style="margin: 0; font-size: 13px; color: #555;">${nights}</p>
-          </div>
-          <div>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>N° de Huéspedes:</strong></p>
-            <p style="margin: 0; font-size: 13px; color: #555;">${booking.personas}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- DETALLE DE SERVICIOS -->
-      <div style="background: white; padding: 20px; border-left: 4px solid #d4af37; border-right: 4px solid #d4af37;">
-        <table style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="background: #1a1a1a; color: white;">
-              <th style="padding: 12px; text-align: left; font-size: 13px; border: 1px solid #ddd;">Descripción</th>
-              <th style="padding: 12px; text-align: center; font-size: 13px; border: 1px solid #ddd; width: 80px;">Cant.</th>
-              <th style="padding: 12px; text-align: right; font-size: 13px; border: 1px solid #ddd; width: 120px;">Precio Unit.</th>
-              <th style="padding: 12px; text-align: right; font-size: 13px; border: 1px solid #ddd; width: 120px;">Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 12px; border: 1px solid #ddd; font-size: 13px;">
-                <strong>${room.nombre}</strong><br>
-                <small style="color: #666;">${room.descripcion.substring(0, 80)}...</small><br>
-                <small style="color: #666;">Servicios incluidos: ${room.servicios.slice(0, 3).join(', ')}</small>
-              </td>
-              <td style="padding: 12px; text-align: center; border: 1px solid #ddd; font-size: 13px;">${nights}</td>
-              <td style="padding: 12px; text-align: right; border: 1px solid #ddd; font-size: 13px;">${formatPrice(room.precio)}</td>
-              <td style="padding: 12px; text-align: right; border: 1px solid #ddd; font-size: 13px;"><strong>${formatPrice(total)}</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <!-- TOTALES -->
-      <div style="background: white; padding: 20px; border-left: 4px solid #d4af37; border-right: 4px solid #d4af37; border-bottom: 4px solid #d4af37; border-radius: 0 0 10px 10px;">
-        <table style="width: 100%; max-width: 300px; margin-left: auto;">
-          <tr style="border-top: 2px solid #d4af37;">
-            <td style="padding: 12px 0; font-size: 18px; text-align: right; color: #d4af37;"><strong>TOTAL A PAGAR:</strong></td>
-            <td style="padding: 12px 0; font-size: 18px; text-align: right; color: #d4af37; font-weight: bold; width: 120px;">${formatPrice(total)}</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-  `;
-
-  // Mostrar en modal
-  const modalElement = document.getElementById('invoiceModal');
-  if (!modalElement) {
-    // Crear modal si no existe
-    const modal = document.createElement('div');
-    modal.innerHTML = `
-      <div class="modal fade" id="invoiceModal" tabindex="-1">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header bg-dark text-white">
-              <h5 class="modal-title">
-                <i class="bi bi-receipt"></i> Factura de Reserva
-              </h5>
-              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body" id="invoiceBody">
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                <i class="bi bi-x-circle"></i> Cerrar
-              </button>
-              <button type="button" class="btn btn-gold" onclick="window.printInvoice()">
-                <i class="bi bi-printer"></i> Imprimir Factura
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    document.body.appendChild(modal.firstElementChild);
-  }
-
-  document.getElementById('invoiceBody').innerHTML = invoiceHTML;
-  const invoiceModal = new bootstrap.Modal(document.getElementById('invoiceModal'));
-  invoiceModal.show();
-};
-
-// ========================================
-// FUNCIÓN: IMPRIMIR FACTURA
-// ========================================
-window.printInvoice = function() {
-  const invoiceContent = document.getElementById('invoiceBody').innerHTML;
-  const printWindow = window.open('', '_blank');
-  printWindow.document.write(`
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Factura - El Rincón del Carmen</title>
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-      <style>
-        body { 
-          font-family: Arial, sans-serif; 
-          margin: 20px;
-          background: white;
-        }
-        @media print {
-          body { margin: 0; }
-          .no-print { display: none; }
-        }
-      </style>
-    </head>
-    <body>
-      ${invoiceContent}
-      <div class="no-print" style="text-align: center; margin-top: 20px;">
-        <button onclick="window.print()" style="padding: 10px 20px; background: #d4af37; color: white; border: none; border-radius: 5px; cursor: pointer;">
-          Imprimir
-        </button>
-        <button onclick="window.close()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; margin-left: 10px;">
-          Cerrar
-        </button>
-      </div>
-    </body>
-    </html>
-  `);
-  printWindow.document.close();
-};
-
-// ========================================
-// FUNCIÓN: VER USUARIO
-// ========================================
 window.viewUser = function(id) {
   const user = getUserById(id);
   if (user) {
@@ -560,4 +319,3 @@ Reservas Activas: ${activeBookingsCount}
     alert('Usuario no encontrado.');
   }
 };
-
