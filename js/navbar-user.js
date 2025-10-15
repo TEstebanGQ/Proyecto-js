@@ -1,7 +1,19 @@
 // ========================================
-// NAVBAR - Menú de Usuario
-// Guardar como: js/navbar-user.js
+// NAVBAR - Menú de Usuario (CORREGIDO)
 // ========================================
+
+/**
+ * Detecta si estamos en un subdirectorio (como /html/)
+ * @returns {string} Prefijo de ruta ('/' o '../')
+ */
+function getPathPrefix() {
+  const path = window.location.pathname;
+  // Si estamos en /html/ o cualquier subdirectorio
+  if (path.includes('/html/')) {
+    return '../';
+  }
+  return '';
+}
 
 /**
  * Verifica si hay un usuario autenticado
@@ -54,8 +66,9 @@ function performLogout() {
   
   console.log('Sesión cerrada correctamente');
   
-  // Redirigir al inicio
-  window.location.href = 'index.html';
+  // Redirigir al inicio con ruta correcta
+  const prefix = getPathPrefix();
+  window.location.href = prefix + 'index.html';
 }
 
 /**
@@ -69,9 +82,10 @@ function updateUserMenu() {
   }
   
   const user = checkAuth();
+  const prefix = getPathPrefix();
   
   if (user) {
-    // Usuario autenticado - mostrar menú dropdown (SIN EMAIL)
+    // Usuario autenticado - mostrar menú dropdown
     const firstName = getFirstName(user.nombre);
     
     userMenuItem.innerHTML = `
@@ -82,10 +96,17 @@ function updateUserMenu() {
         </a>
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark" aria-labelledby="userDropdown">
           <li>
-            <a class="dropdown-item" href="mis-reservas.html">
+            <a class="dropdown-item" href="${prefix}mis-reservas.html">
               <i class="bi bi-calendar-check"></i> Mis Reservas
             </a>
           </li>
+          ${user.role === 'admin' ? `
+          <li>
+            <a class="dropdown-item" href="${prefix}admin.html">
+              <i class="bi bi-gear"></i> Administración
+            </a>
+          </li>
+          ` : ''}
           <li><hr class="dropdown-divider"></li>
           <li>
             <a class="dropdown-item" href="#" id="navLogoutBtn">
@@ -107,9 +128,9 @@ function updateUserMenu() {
       });
     }
   } else {
-    // Usuario no autenticado - mostrar botón de login
+    // Usuario no autenticado - mostrar botón de login con ruta correcta
     userMenuItem.innerHTML = `
-      <a class="nav-link" href="login.html">
+      <a class="nav-link" href="${prefix}login.html">
         <i class="bi bi-person-circle"></i> Ingresar
       </a>
     `;
@@ -142,3 +163,6 @@ window.addEventListener('storage', (e) => {
     updateUserMenu();
   }
 });
+
+// Debug: mostrar ruta detectada
+console.log('Navbar User JS cargado - Prefijo de ruta:', getPathPrefix());
