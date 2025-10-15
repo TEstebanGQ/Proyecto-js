@@ -135,9 +135,7 @@ async function handleSearch(e) {
   }, 500);
 }
 
-// ========================================
-// MOSTRAR RESULTADOS
-// ========================================
+
 
 function displayResults(rooms, fechaInicio, fechaFin, personas) {
   if (rooms.length === 0) {

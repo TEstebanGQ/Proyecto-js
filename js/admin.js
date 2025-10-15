@@ -267,9 +267,6 @@ window.removeServiceInput = function(button) {
   button.parentElement.remove();
 };
 
-// ========================================
-// EVENTO: SUBMIT FORMULARIO HABITACIÓN
-// ========================================
 document.getElementById('roomForm').addEventListener('submit', (e) => {
   e.preventDefault();
   

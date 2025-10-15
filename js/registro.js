@@ -1,6 +1,5 @@
 import { addUser, isAuthenticated, login } from './storage.js';
 
-// Redirigir si ya está autenticado
 if (isAuthenticated()) {
   window.location.href = 'mis-reservas.html';
 }
